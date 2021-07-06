@@ -1,11 +1,12 @@
 import { Application, ApplicationDocument, CreateApplicationRequest, UploadDocumentRequest } from "../types/application"
 import { UnitResponse, Include, UnitError } from "../types/common"
 import { BaseResource } from "./baseResource"
+import { AxiosInstance } from "axios"
 
 export class Applications extends BaseResource {
 
-    constructor(token: string, basePath: string) {
-        super(token, basePath + "/applications")
+    constructor(token: string, basePath: string, axios?: AxiosInstance) {
+        super(token, basePath + "/applications", axios)
     }
 
     public async list(params?: ApplicationListParams): Promise<UnitResponse<Application[]> | UnitError> {
@@ -98,7 +99,7 @@ interface ApplicationListParams {
 
     /**
      * Optional. sort=createdAt for ascending order or sort=-createdAt (leading minus sign) for descending order.
-     * default: sort=-createdAt	
+     * default: sort=-createdAt
      */
     sort?: string
 }

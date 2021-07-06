@@ -3,21 +3,22 @@ import { Customer } from "../types/customer"
 import { Account } from "../types/account"
 import { Transaction } from "../types/transactions"
 import { BaseResource } from "./baseResource"
+import { AxiosInstance } from "axios"
 
 export class Transactions extends BaseResource {
 
-    constructor(token: string, basePath: string) {
-        super(token, basePath)
+    constructor(token: string, basePath: string, axios?: AxiosInstance) {
+        super(token, basePath, axios)
     }
 
     /**
-     * 
-     * @param accountId 
-     * @param transactionId 
+     *
+     * @param accountId
+     * @param transactionId
      * @param customerId - Optional. Filters the result by the specified customer id.
-     * @param include - Optional. A comma-separated list of related resources to include in the response. 
+     * @param include - Optional. A comma-separated list of related resources to include in the response.
      * Related resources include: customer, account. [See Getting Related Resources](https://developers.unit.co/#intro-getting-related-resources)
-     * @returns 
+     * @returns
      */
     public async get(accountId: string, transactionId: string, customerId?: string, include?: string): Promise<UnitResponse<Transaction> & Include<Account[] | Customer[]> | UnitError> {
         const parameters = {
@@ -47,9 +48,9 @@ export class Transactions extends BaseResource {
     }
 
     /**
-     * 
-     * @param accountId 
-     * @param transactionId 
+     *
+     * @param accountId
+     * @param transactionId
      * @param tags - See [Updating Tags](https://developers.unit.co/#tags).
      * @returns
      */
@@ -124,12 +125,12 @@ export interface TransactionListParams {
 
     /**
      * Optional. .Leave empty or provide sort = createdAt for ascending order.Provide sort = -createdAt(leading minus sign) for descending order.
-     * default: sort=-createdAt	
+     * default: sort=-createdAt
      */
     sort?: string
 
     /**
-    * Optional. A comma-separated list of related resources to include in the response. 
+    * Optional. A comma-separated list of related resources to include in the response.
     * Related resources include: customer, account. [See Getting Related Resources](https://developers.unit.co/#intro-getting-related-resources)
     */
     include?: string
