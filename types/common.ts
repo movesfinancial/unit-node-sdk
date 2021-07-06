@@ -296,11 +296,25 @@ export interface Include<T> {
     included?: T
 }
 
-export type UnitError = {
-    errors: [{
-        title: string
-        status: number
-        detail?: string
-        details?: string
-    }]
+export class UnitError extends Error {
+    public readonly isUnitError = true
+    public readonly name = "UnitError"
+
+    // https://docs.unit.co/#intro-errors
+    public readonly errors: UnitErrorPayload[]
+
+    constructor(errors: UnitErrorPayload[] | UnitErrorPayload) {
+        super(Array.isArray(errors) ?  (errors.length === 1 ? errors[0].title : "Unit error") : errors.title)
+        Object.setPrototypeOf(this, new.target.prototype) // restore prototype chain
+
+        this.errors = Array.isArray(errors) ? errors : [errors]
+    }
+}
+
+export interface UnitErrorPayload {
+    title: string
+    status: number
+    code?: string
+    detail?: string
+    details?: string
 }

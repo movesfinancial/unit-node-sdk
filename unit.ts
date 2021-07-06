@@ -52,6 +52,6 @@ export class Unit {
     }
 
     isError<T>(response: T | UnitError): response is UnitError {
-        return (response as UnitError).errors !== undefined
+        return (response as UnitError).isUnitError === true
     }
 }
