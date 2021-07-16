@@ -15,6 +15,7 @@ import { Events } from "./resources/events"
 import { Payments } from "./resources/payments"
 import { Authorizations } from "./resources/authorization"
 import { Statments } from "./resources/statements"
+import { AxiosInstance } from "axios"
 
 export class Unit {
     public applications: Applications
@@ -33,21 +34,21 @@ export class Unit {
     public statements: Statments
     public events: Events
 
-    constructor(token: string, basePath: string) {
-        this.applications = new Applications(token, basePath)
-        this.customers = new Customers(token, basePath)
-        this.accounts = new Accounts(token, basePath)
-        this.transactions = new Transactions(token, basePath)
-        this.cards = new Cards(token, basePath)
-        this.webhooks = new Webhooks(token, basePath)
-        this.customerToken = new CustomerTokens(token, basePath)
-        this.batchAccount = new BatchAccounts(token, basePath)
-        this.fees = new Fees(token, basePath)
-        this.counterparties = new Counterparty(token, basePath)
-        this.events = new Events(token, basePath)
-        this.payments = new Payments(token, basePath)
-        this.authorizations = new Authorizations(token, basePath)
-        this.statements = new Statments(token, basePath)
+    constructor(token: string, basePath: string, axios?: AxiosInstance) {
+        this.applications = new Applications(token, basePath, axios)
+        this.customers = new Customers(token, basePath, axios)
+        this.accounts = new Accounts(token, basePath, axios)
+        this.transactions = new Transactions(token, basePath, axios)
+        this.cards = new Cards(token, basePath, axios)
+        this.webhooks = new Webhooks(token, basePath, axios)
+        this.customerToken = new CustomerTokens(token, basePath, axios)
+        this.batchAccount = new BatchAccounts(token, basePath, axios)
+        this.fees = new Fees(token, basePath, axios)
+        this.counterparties = new Counterparty(token, basePath, axios)
+        this.events = new Events(token, basePath, axios)
+        this.payments = new Payments(token, basePath, axios)
+        this.authorizations = new Authorizations(token, basePath, axios)
+        this.statements = new Statments(token, basePath, axios)
         this.helpers = helpers
     }
 
