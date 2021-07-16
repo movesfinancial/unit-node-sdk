@@ -1,5 +1,5 @@
 {
-  "name": "@unit-finance/unit-node-sdk",
+  "name": "@movesfinancial/unit-node-sdk",
   "version": "0.4.1",
   "description": "",
   "main": "dist/unit.js",
@@ -10,16 +10,19 @@
     "lint": "eslint **/*.ts",
     "lint-fix": "eslint **/*.ts --fix"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/unit-finance/unit-node-sdk.git"
+    "url": "git+https://github.com/movesfinancial/unit-node-sdk.git"
   },
   "author": "Unit",
   "license": "MPLv2",
   "bugs": {
-    "url": "https://github.com/unit-finance/unit-node-sdk/issues"
+    "url": "https://github.com/movesfinancial/unit-node-sdk/issues"
   },
-  "homepage": "https://github.com/unit-finance/unit-node-sdk#readme",
+  "homepage": "https://github.com/movesfinancial/unit-node-sdk#readme",
   "devDependencies": {
     "@types/node": "^15.0.2",
     "@typescript-eslint/eslint-plugin": "^4.28.0",
