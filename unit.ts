@@ -35,6 +35,9 @@ export class Unit {
     public events: Events
 
     constructor(token: string, basePath: string, axios?: AxiosInstance) {
+        // remove trailing slash from user-provided basePath
+        basePath = basePath.trim().replace(/\/$/, "")
+
         this.applications = new Applications(token, basePath, axios)
         this.customers = new Customers(token, basePath, axios)
         this.accounts = new Accounts(token, basePath, axios)
