@@ -3,7 +3,7 @@ import { AchCounterparty, CreateCounterpartyRequest, PatchCounterpartyRequest } 
 import { BaseResource } from "./baseResource"
 import { AxiosInstance } from "axios"
 
-export class Counterparty extends BaseResource {
+export class Counterparties extends BaseResource {
 
     constructor(token: string, basePath: string, axios?: AxiosInstance) {
         super(token, basePath + "/counterparties", axios)
