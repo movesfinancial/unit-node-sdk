@@ -76,7 +76,7 @@ export class Cards extends BaseResource {
     }
 }
 
-interface CardListParams {
+export interface CardListParams {
     /**
      * Maximum number of resources that will be returned. Maximum is 1000 resources. See Pagination.
      * default: 100

@@ -52,7 +52,7 @@ export class Accounts extends BaseResource {
     }
 }
 
-interface AccountListParams {
+export interface AccountListParams {
     /**
      * Maximum number of resources that will be returned. Maximum is 1000 resources. [See Pagination](https://developers.unit.co/#intro-pagination).
      * default: 100
