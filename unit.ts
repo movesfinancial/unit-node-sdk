@@ -53,6 +53,7 @@ export class Unit {
     }
 
     isError<T>(response: T | UnitError): response is UnitError {
+        // noinspection PointlessBooleanExpressionJS
         return (response as UnitError).isUnitError === true
     }
 }

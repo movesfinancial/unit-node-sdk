@@ -1,5 +1,5 @@
 import { CreateDebitCardRequest, Card, ReplaceCardRequest } from "../types/cards"
-import { UnitResponse, UnitError, Include } from "../types/common"
+import { UnitResponse, Include } from "../types/common"
 import { Customer } from "../types/customer"
 import { Account } from "../types/account"
 import { BaseResource } from "./baseResource"
@@ -11,36 +11,36 @@ export class Cards extends BaseResource {
         super(token, basePath + "/cards", axios)
     }
 
-    public async createDebitCard(request: CreateDebitCardRequest): Promise<UnitResponse<Card> | UnitError> {
+    public async createDebitCard(request: CreateDebitCardRequest): Promise<UnitResponse<Card>> {
         return await this.httpPost<UnitResponse<Card>>("", { data: request })
     }
 
-    public async reportStolen(id: number): Promise<UnitResponse<Card> | UnitError> {
+    public async reportStolen(id: number): Promise<UnitResponse<Card>> {
         const path = `/${id}/report-stolen`
         return await this.httpPost<UnitResponse<Card>>(path)
     }
 
-    public async reportLost(id: string): Promise<UnitResponse<Card> | UnitError> {
+    public async reportLost(id: string): Promise<UnitResponse<Card>> {
         const path = `/${id}/report-lost`
         return await this.httpPost<UnitResponse<Card>>(path)
     }
 
-    public async closeCard(id: string): Promise<UnitResponse<Card> | UnitError> {
+    public async closeCard(id: string): Promise<UnitResponse<Card>> {
         const path = `/${id}/close`
         return await this.httpPost<UnitResponse<Card>>(path)
     }
 
-    public async freeze(id: string): Promise<UnitResponse<Card> | UnitError> {
+    public async freeze(id: string): Promise<UnitResponse<Card>> {
         const path = `/${id}/freeze`
         return await this.httpPost<UnitResponse<Card>>(path)
     }
 
-    public async unfreeze(id: string): Promise<UnitResponse<Card> | UnitError> {
+    public async unfreeze(id: string): Promise<UnitResponse<Card>> {
         const path = `/${id}/unfreeze`
         return await this.httpPost<UnitResponse<Card>>(path)
     }
 
-    public async replace(request: ReplaceCardRequest): Promise<UnitResponse<Card> | UnitError> {
+    public async replace(request: ReplaceCardRequest): Promise<UnitResponse<Card>> {
         const path = `/${request.id}/replace`
         const data = {
             type: "replaceCard",
@@ -57,13 +57,13 @@ export class Cards extends BaseResource {
      * @param include - Optional. A comma-separated list of related resources to include in the response.
      * Related resources include: customer, account. See [Getting Related Resources](https://developers.unit.co/#intro-getting-related-resources).
      */
-    public async get(id: string, include = ""): Promise<UnitResponse<Card> | UnitError> {
+    public async get(id: string, include = ""): Promise<UnitResponse<Card>> {
         const path = `/${id}?include=${include}`
 
         return await this.httpGet<UnitResponse<Card> & Include<Account[] | Customer[]>>(path)
     }
 
-    public async list(params?: CardListParams): Promise<UnitResponse<Card> & Include<Account[] | Customer[]> | UnitError> {
+    public async list(params?: CardListParams): Promise<UnitResponse<Card> & Include<Account[] | Customer[]>> {
         const parameters = {
             "page[limit]": (params?.limit ? params?.limit : 100),
             "page[offset]": (params?.offset ? params?.offset : 0),

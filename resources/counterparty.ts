@@ -1,4 +1,4 @@
-import { UnitError, UnitResponse } from "../types/common"
+import { UnitResponse } from "../types/common"
 import { AchCounterparty, CreateCounterpartyRequest, PatchCounterpartyRequest } from "../types/counterparty"
 import { BaseResource } from "./baseResource"
 import { AxiosInstance } from "axios"
@@ -9,19 +9,19 @@ export class Counterparty extends BaseResource {
         super(token, basePath + "/counterparties", axios)
     }
 
-    public async create(request: CreateCounterpartyRequest): Promise<UnitResponse<AchCounterparty> | UnitError> {
+    public async create(request: CreateCounterpartyRequest): Promise<UnitResponse<AchCounterparty>> {
         return await this.httpPost<UnitResponse<AchCounterparty>>("", { data: request })
     }
 
-    public async delete(id: string): Promise<UnitResponse<AchCounterparty> | UnitError> {
+    public async delete(id: string): Promise<UnitResponse<AchCounterparty>> {
         return await this.httpDelete<UnitResponse<AchCounterparty>>(`/${id}`)
     }
 
-    public async get(id: string): Promise<UnitResponse<AchCounterparty> | UnitError> {
+    public async get(id: string): Promise<UnitResponse<AchCounterparty>> {
         return await this.httpGet<UnitResponse<AchCounterparty>>(`/${id}`)
     }
 
-    public async list(params?: CounterpartyListParams): Promise<UnitResponse<AchCounterparty[]> | UnitError> {
+    public async list(params?: CounterpartyListParams): Promise<UnitResponse<AchCounterparty[]>> {
         const parameters = {
             "page[limit]": (params?.limit ? params?.limit : 100),
             "page[offset]": (params?.offset ? params?.offset : 0),
@@ -31,8 +31,8 @@ export class Counterparty extends BaseResource {
         return this.httpGet<UnitResponse<AchCounterparty[]>>("", { params: parameters })
     }
 
-    public async update(id: string, request: PatchCounterpartyRequest): Promise<UnitResponse<AchCounterparty> | UnitError> {
-        return this.httpPatch<Promise<UnitResponse<AchCounterparty> | UnitError>>(`/${id}`, { data: request })
+    public async update(id: string, request: PatchCounterpartyRequest): Promise<UnitResponse<AchCounterparty>> {
+        return this.httpPatch<Promise<UnitResponse<AchCounterparty>>>(`/${id}`, { data: request })
     }
 }
 

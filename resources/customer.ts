@@ -1,4 +1,4 @@
-import { UnitResponse, UnitError} from "../types/common"
+import { UnitResponse } from "../types/common"
 import { Customer, PatchCustomerRequest } from "../types/customer"
 import { BaseResource } from "./baseResource"
 import { AxiosInstance } from "axios"
@@ -9,15 +9,15 @@ export class Customers extends BaseResource {
         super(token, basePath + "/customers", axios)
     }
 
-    public async update(request: PatchCustomerRequest): Promise<UnitResponse<Customer> | UnitError>{
+    public async update(request: PatchCustomerRequest): Promise<UnitResponse<Customer>>{
         return this.httpPatch<UnitResponse<Customer>>(`/${request.customerId}`, { data: request.data })
     }
 
-    public async get(customerId: string): Promise<UnitResponse<Customer> | UnitError> {
+    public async get(customerId: string): Promise<UnitResponse<Customer>> {
         return this.httpGet<UnitResponse<Customer>>(`/${customerId}`)
     }
 
-    public async list(params?: CustomersListParams): Promise<UnitResponse<Customer[]> | UnitError> {
+    public async list(params?: CustomersListParams): Promise<UnitResponse<Customer[]>> {
 
         const parameters = {
             "page[limit]": (params?.limit ? params.limit : 100),

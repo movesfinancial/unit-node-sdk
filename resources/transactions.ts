@@ -1,4 +1,4 @@
-import { UnitError, Include, UnitResponse } from "../types/common"
+import { Include, UnitResponse } from "../types/common"
 import { Customer } from "../types/customer"
 import { Account } from "../types/account"
 import { Transaction } from "../types/transactions"
@@ -20,7 +20,7 @@ export class Transactions extends BaseResource {
      * Related resources include: customer, account. [See Getting Related Resources](https://developers.unit.co/#intro-getting-related-resources)
      * @returns
      */
-    public async get(accountId: string, transactionId: string, customerId?: string, include?: string): Promise<UnitResponse<Transaction> & Include<Account[] | Customer[]> | UnitError> {
+    public async get(accountId: string, transactionId: string, customerId?: string, include?: string): Promise<UnitResponse<Transaction> & Include<Account[] | Customer[]>> {
         const parameters = {
             ...(customerId && { "filter[customerId]": customerId }),
             "include": include ? include : ""
@@ -29,7 +29,7 @@ export class Transactions extends BaseResource {
         return await this.httpGet<UnitResponse<Transaction> & Include<Account[] | Customer[]>>(`/accounts/${accountId}/transactions/${transactionId}`, { params: parameters })
     }
 
-    public async list(params?: TransactionListParams): Promise<UnitResponse<Transaction[]> & Include<Account[] | Customer[]> | UnitError> {
+    public async list(params?: TransactionListParams): Promise<UnitResponse<Transaction[]> & Include<Account[] | Customer[]>> {
         const parameters = {
             "page[limit]": (params?.limit ? params.limit : 100),
             "page[offset]": (params?.offset ? params.offset : 0),
@@ -54,7 +54,7 @@ export class Transactions extends BaseResource {
      * @param tags - See [Updating Tags](https://developers.unit.co/#tags).
      * @returns
      */
-    public async update(accountId: string, transactionId: string, tags: object): Promise<UnitResponse<Transaction> | UnitError> {
+    public async update(accountId: string, transactionId: string, tags: object): Promise<UnitResponse<Transaction>> {
         const data = {
             type: "transaction",
             attributes: {

@@ -1,4 +1,4 @@
-import { UnitResponse, Statement, UnitError } from "../types/common"
+import { UnitResponse, Statement } from "../types/common"
 import { BaseResource } from "./baseResource"
 import { AxiosInstance } from "axios"
 
@@ -7,7 +7,7 @@ export class Statments extends BaseResource {
         super(token, basePath + "/statements", axios)
     }
 
-    public async list(params?: StatementsListParams): Promise<UnitResponse<Statement[]> | UnitError> {
+    public async list(params?: StatementsListParams): Promise<UnitResponse<Statement[]>> {
         const parameters = {
             "page[limit]": (params?.limit ? params?.limit : 100),
             "page[offset]": (params?.offset ? params?.offset : 0),
@@ -18,7 +18,7 @@ export class Statments extends BaseResource {
         return this.httpGet<UnitResponse<Statement[]>>("", { params: parameters })
     }
 
-    public get(statementId: string, customerId?: string): Promise<UnitResponse<Statement> | UnitError> {
+    public get(statementId: string, customerId?: string): Promise<UnitResponse<Statement>> {
         const parameters = {
             ...(customerId && { "filter[customerId]": customerId })
         }

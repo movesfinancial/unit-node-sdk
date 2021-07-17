@@ -1,4 +1,4 @@
-import { UnitResponse, UnitError } from "../types/common"
+import { UnitResponse } from "../types/common"
 import { CreateFeeRequest, Fee } from "../types/fee"
 import { BaseResource } from "./baseResource"
 import { AxiosInstance } from "axios"
@@ -8,7 +8,7 @@ export class Fees extends BaseResource {
         super(token, basePath + "/fees", axios)
     }
 
-    public async createFee(request: CreateFeeRequest): Promise<UnitResponse<Fee> | UnitError> {
+    public async createFee(request: CreateFeeRequest): Promise<UnitResponse<Fee>> {
         return this.httpPost<UnitResponse<Fee>>("", { data: request })
     }
 }
