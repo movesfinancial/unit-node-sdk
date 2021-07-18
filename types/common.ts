@@ -296,6 +296,7 @@ export interface Include<T> {
     included?: T
 }
 
+const DEFAULT_ERROR_MESSAGE = "unit api error"
 export class UnitError extends Error {
     public readonly isUnitError = true
     public readonly name = "UnitError"
@@ -303,8 +304,8 @@ export class UnitError extends Error {
     // https://docs.unit.co/#intro-errors
     public readonly errors: UnitErrorPayload[]
 
-    constructor(errors: UnitErrorPayload[] | UnitErrorPayload) {
-        super(Array.isArray(errors) ?  (errors.length === 1 ? errors[0].title : "Unit error") : errors.title)
+    constructor(errors: UnitErrorPayload[]) {
+        super(errors.length === 1 ? errors[0].title ?? DEFAULT_ERROR_MESSAGE : DEFAULT_ERROR_MESSAGE)
         Object.setPrototypeOf(this, new.target.prototype) // restore prototype chain
 
         this.errors = Array.isArray(errors) ? errors : [errors]

@@ -26,7 +26,7 @@ export class BaseResource {
 
         return await this.axios.get<T>(this.resourcePath + path, conf)
             .then(r => r.data)
-            .catch(error => { throw new UnitError(error.response.data) })
+            .catch(error => { throw new UnitError(error.response.data.errors) })
     }
 
     protected async httpPatch<T>(path: string, data: object, config?: { headers?: object; params?: object; }) : Promise<T> {
@@ -37,7 +37,7 @@ export class BaseResource {
 
         return await this.axios.patch<T>(this.resourcePath + path, data, conf)
             .then(r => r.data)
-            .catch(error => { throw new UnitError(error.response.data) })
+            .catch(error => { throw new UnitError(error.response.data.errors) })
     }
 
     protected async httpPost<T>(path: string, data?: object, config?: { headers?: object; params?: object; }) : Promise<T>{
@@ -48,7 +48,7 @@ export class BaseResource {
 
         return await this.axios.post<T>(this.resourcePath + path, data, conf)
             .then(r => r.data)
-            .catch(error => { throw new UnitError(error.response.data) })
+            .catch(error => { throw new UnitError(error.response.data.errors) })
     }
 
     protected async httpPut<T>(path: string, data: object, config?: { headers?: object; params?: object; }) : Promise<T>{
@@ -59,13 +59,13 @@ export class BaseResource {
 
         return await this.axios.put<T>(this.resourcePath + path, data, conf)
             .then(r => r.data)
-            .catch(error => { throw new UnitError(error.response.data) })
+            .catch(error => { throw new UnitError(error.response.data.errors) })
     }
 
     protected async httpDelete<T>(path: string) : Promise<T> {
         return await this.axios.delete<T>(this.resourcePath + path, {headers: this.headers})
             .then(r => r.data)
-            .catch(error => { throw new UnitError(error.response.data) })
+            .catch(error => { throw new UnitError(error.response.data.errors) })
     }
 
     private mergeHeaders(configHeaders: object | undefined){
