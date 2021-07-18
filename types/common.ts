@@ -302,13 +302,25 @@ export class UnitError extends Error {
     public readonly name = "UnitError"
 
     // https://docs.unit.co/#intro-errors
-    public readonly errors: UnitErrorPayload[]
+    public readonly errors: UnitErrorPayload[] = []
 
     constructor(errors: UnitErrorPayload[]) {
         super(errors.length === 1 ? errors[0].title ?? DEFAULT_ERROR_MESSAGE : DEFAULT_ERROR_MESSAGE)
         Object.setPrototypeOf(this, new.target.prototype) // restore prototype chain
 
-        this.errors = Array.isArray(errors) ? errors : [errors]
+        if (errors && Array.isArray(errors)) {
+            let isValidErrorsArray = true
+            for (let i = 0; i < errors.length; i++) {
+                const error = errors[i]
+                if (!error.hasOwnProperty("title") || !error.hasOwnProperty("status")) {
+                    isValidErrorsArray = false
+                    break
+                }
+            }
+            if (isValidErrorsArray) {
+                this.errors = errors
+            }
+        }
     }
 }
 
