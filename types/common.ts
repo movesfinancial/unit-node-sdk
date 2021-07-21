@@ -1,3 +1,5 @@
+import axiosStatic from "axios"
+
 export type Status = "Approved" | "Denied" | "PendingReview"
 
 export type Title = "CEO" | "COO" | "CFO" | "President"
@@ -296,38 +298,67 @@ export interface Include<T> {
     included?: T
 }
 
-const DEFAULT_ERROR_MESSAGE = "unit api error"
 export class UnitError extends Error {
     public readonly isUnitError = true
     public readonly name = "UnitError"
 
-    // https://docs.unit.co/#intro-errors
-    public readonly errors: UnitErrorPayload[] = []
+    // preserve the underlying object used to parse a UnitError
+    public readonly underlying: any
+    public readonly errors: UnitErrorPayload[]
 
-    constructor(errors: UnitErrorPayload[]) {
-        super(errors.length === 1 ? errors[0].title ?? DEFAULT_ERROR_MESSAGE : DEFAULT_ERROR_MESSAGE)
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+    constructor(message: string, underlying?: any, errors?: UnitErrorPayload[]) {
+        super(message)
         Object.setPrototypeOf(this, new.target.prototype) // restore prototype chain
 
-        if (errors && Array.isArray(errors)) {
-            let isValidErrorsArray = true
-            for (let i = 0; i < errors.length; i++) {
-                const error = errors[i]
-                if (!error.hasOwnProperty("title") || !error.hasOwnProperty("status")) {
-                    isValidErrorsArray = false
-                    break
-                }
-            }
-            if (isValidErrorsArray) {
-                this.errors = errors
-            }
-        }
+        this.underlying = underlying
+        this.errors = errors ?? []
     }
 }
 
+// https://docs.unit.co/#intro-errors
 export interface UnitErrorPayload {
+    status: number // http status code
     title: string
-    status: number
     code?: string
-    detail?: string
     details?: string
+    [k: string]: unknown // allow for other keys
+}
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const extractUnitError = (underlying: any): UnitError => {
+    // for now, we only support extracting a UnitError from an axios error
+    if (!underlying || !axiosStatic.isAxiosError(underlying) || !underlying.response) {
+        return new UnitError("Unknown Error", underlying)
+    }
+
+    let message = `${underlying.response.status}: ${underlying.response.statusText}`
+    const errors = underlying.response.data.errors
+
+    if (!isValidUnitErrorsArray(errors)) {
+        return new UnitError(message, underlying)
+    }
+
+    if (errors.length === 1) {
+        message = `${errors[0].status}: ${errors[0].title}`
+    }
+
+    return new UnitError(message, underlying, errors)
+}
+
+const isValidUnitErrorsArray = (errors: any): errors is UnitErrorPayload[] => {
+    if (errors && Array.isArray(errors)) {
+        let isValidErrorsArray = true
+        for (let i = 0; i < errors.length; i++) {
+            const error = errors[i]
+            if (!error.hasOwnProperty("title") || !error.hasOwnProperty("status")) {
+                isValidErrorsArray = false
+                break
+            }
+        }
+
+        return isValidErrorsArray
+    }
+
+    return false
 }
