@@ -332,7 +332,7 @@ export const extractUnitError = (underlying: any): UnitError => {
         return new UnitError("Unknown Error", underlying)
     }
 
-    let message = `${underlying.response.status}: ${underlying.response.statusText}`
+    let message = `${underlying.response.status} - ${underlying.response.statusText}`
     const errors = underlying.response.data.errors
 
     if (!isValidUnitErrorsArray(errors)) {
@@ -340,7 +340,7 @@ export const extractUnitError = (underlying: any): UnitError => {
     }
 
     if (errors.length === 1) {
-        message = `${errors[0].status}: ${errors[0].title}`
+        message = `${errors[0].status} - ${errors[0].title}`
     }
 
     return new UnitError(message, underlying, errors)
