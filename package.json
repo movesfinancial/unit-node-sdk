@@ -1,6 +1,6 @@
 {
   "name": "@movesfinancial/unit-node-sdk",
-  "version": "0.6.2",
+  "version": "0.6.2-fork.1",
   "description": "",
   "main": "dist/unit.js",
   "types": "dist/unit.d.ts",
@@ -12,7 +12,7 @@
     "build": "tsc",
     "lint": "eslint **/*.ts",
     "lint-fix": "eslint **/*.ts --fix",
-    "prepublishOnly": "npm build"
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
