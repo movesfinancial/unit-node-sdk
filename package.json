@@ -12,7 +12,7 @@
     "build": "tsc",
     "lint": "eslint **/*.ts",
     "lint-fix": "eslint **/*.ts --fix",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm install && npm run build"
   },
   "repository": {
     "type": "git",
