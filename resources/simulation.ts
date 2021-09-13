@@ -1,5 +1,5 @@
 import { BaseResource } from ".";
-import { ReasonCode } from "../types";
+import { Application, ApplicationDocument, ReasonCode } from "../types";
 import { UnitConfig, UnitResponse } from "../types/common";
 import {
   SimulateApproveApplicationRequest,
@@ -15,8 +15,8 @@ export class Simulations extends BaseResource {
   public async applicationApprove(
     applicationId: string,
     request: SimulateApproveApplicationRequest
-  ): Promise<UnitResponse<unknown>> {
-    return this.httpPost<UnitResponse<unknown>>(
+  ): Promise<UnitResponse<Application>> {
+    return this.httpPost<UnitResponse<Application>>(
       `/applications/${applicationId}/approve`,
       {
         data: request,
@@ -27,8 +27,8 @@ export class Simulations extends BaseResource {
   public async applicationDeny(
     applicationId: string,
     request: SimulateDenyApplicationRequest
-  ): Promise<UnitResponse<unknown>> {
-    return this.httpPost<UnitResponse<unknown>>(
+  ): Promise<UnitResponse<Application>> {
+    return this.httpPost<UnitResponse<Application>>(
       `/applications/${applicationId}/deny`,
       {
         data: request,
@@ -39,8 +39,8 @@ export class Simulations extends BaseResource {
   public async approveDocument(
     applicationId: string,
     documentId: string
-  ): Promise<UnitResponse<unknown>> {
-    return this.httpPost<UnitResponse<unknown>>(
+  ): Promise<UnitResponse<ApplicationDocument>> {
+    return this.httpPost<UnitResponse<ApplicationDocument>>(
       `/applications/${applicationId}/documents/${documentId}/approve`,
       {}
     );
@@ -50,8 +50,8 @@ export class Simulations extends BaseResource {
     applicationId: string,
     documentId: string,
     request: SimulateRejectDocumentRequest
-  ): Promise<UnitResponse<unknown>> {
-    return this.httpPost<UnitResponse<unknown>>(
+  ): Promise<UnitResponse<ApplicationDocument>> {
+    return this.httpPost<UnitResponse<ApplicationDocument>>(
       `/applications/${applicationId}/documents/${documentId}/reject`,
       {
         data: request,
