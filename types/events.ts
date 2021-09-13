@@ -160,7 +160,7 @@ export type PaymentReturned = BaseEvent & {
     }
 }
 
-interface StatementsCreated {
+export type StatementsCreated = BaseEvent & {
     type: "statements.created"
 }
 
