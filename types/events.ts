@@ -35,45 +35,8 @@ export interface BaseEventRelationships {
     [k: string]: Relationship
 }
 
-// use const assertions to declare hierarchical constants
-// https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-4.html#const-assertions
-export const EventType = {
-    account: {
-        closed: "account.closed"
-    },
-    application: {
-        denied: "application.denied",
-        awaitingDocuments: "application.awaitingDocuments"
-    },
-    authorization: {
-        created: "authorization.created"
-    },
-    card: {
-        activated: "card.activated",
-        statusChanged: "card.statusChanged"
-    },
-    customer: {
-        created: "customer.created"
-    },
-    document: {
-        approved: "document.approved",
-        rejected: "document.rejected"
-    },
-    payment: {
-        clearing: "payment.clearing",
-        sent: "payment.sent",
-        returned: "payment.returned"
-    },
-    statements: {
-        created: "statements.created"
-    },
-    transaction: {
-        created: "transaction.created"
-    }
-} as const
-
 export type AccountClosed = BaseEvent & {
-    type: typeof EventType.account.closed
+    type: "account.closed"
     attributes: {
         closeReason: string
     }
@@ -84,7 +47,7 @@ export type AccountClosed = BaseEvent & {
 }
 
 export type ApplicationDenied = BaseEvent & {
-    type: typeof EventType.application.denied
+    type: "application.denied"
     relationships: {
         application: Relationship
 
@@ -92,14 +55,14 @@ export type ApplicationDenied = BaseEvent & {
 }
 
 export type ApplicationAwaitingDocuments = BaseEvent & {
-    type: typeof EventType.application.awaitingDocuments
+    type: "application.awaitingDocuments"
     relationships: {
         application: Relationship
     }
 }
 
 export type AuthorizationCreated = BaseEvent & {
-    type: typeof EventType.authorization.created
+    type: "authorization.created"
     attributes: {
         cardLast4Digits: string
         recurring: boolean
@@ -112,7 +75,7 @@ export type AuthorizationCreated = BaseEvent & {
 }
 
 export type CardActivated = BaseEvent & {
-    type: typeof EventType.card.activated
+    type: "card.activated"
     relationships: {
         card: Relationship
         account: Relationship
@@ -121,7 +84,7 @@ export type CardActivated = BaseEvent & {
 }
 
 export type CardStatusChanged = BaseEvent & {
-    type: typeof EventType.card.statusChanged
+    type: "card.statusChanged"
     attributes: {
         newStatus: string
         previousStatus: string
@@ -134,7 +97,7 @@ export type CardStatusChanged = BaseEvent & {
 }
 
 export type CustomerCreated = BaseEvent & {
-    type: typeof EventType.customer.created
+    type: "customer.created"
     relationships: {
         customer: Relationship
         application: Relationship
@@ -142,7 +105,7 @@ export type CustomerCreated = BaseEvent & {
 }
 
 export type DocumentApproved = BaseEvent & {
-    type: typeof EventType.document.approved
+    type: "document.approved"
     relationships: {
         document: Relationship
         application: Relationship
@@ -150,7 +113,7 @@ export type DocumentApproved = BaseEvent & {
 }
 
 export type DocumentRejected = BaseEvent & {
-    type: typeof EventType.document.rejected
+    type: "document.rejected"
     attributes: {
         reason: string
         reasonCode: string
@@ -162,7 +125,7 @@ export type DocumentRejected = BaseEvent & {
 }
 
 export type PaymentClearing = BaseEvent & {
-    type: typeof EventType.payment.clearing
+    type: "payment.clearing"
     attributes: {
         previousStatus: string
     }
@@ -174,7 +137,7 @@ export type PaymentClearing = BaseEvent & {
 }
 
 export type PaymentSent = BaseEvent & {
-    type: typeof EventType.payment.sent
+    type: "payment.sent"
     attributes: {
         previousStatus: string
     }
@@ -186,7 +149,7 @@ export type PaymentSent = BaseEvent & {
 }
 
 export type PaymentReturned = BaseEvent & {
-    type: typeof EventType.payment.returned
+    type: "payment.returned"
     attributes: {
         previousStatus: string
     }
@@ -198,11 +161,11 @@ export type PaymentReturned = BaseEvent & {
 }
 
 interface StatementsCreated {
-    type: typeof EventType.statements.created
+    type: "statements.created"
 }
 
 export type TransactionCreated = BaseEvent & {
-    type: typeof EventType.transaction.created
+    type: "transaction.created"
     attributes: {
         summary: string
         direction: string
