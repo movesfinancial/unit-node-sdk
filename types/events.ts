@@ -1,10 +1,8 @@
-import { ApplicationDocumentStatus } from "./application"
 import { Relationship } from "./common"
 
 export type UnitEvent =
     AccountClosed |
     ApplicationDenied |
-    ApplicationDocumentStatus |
     ApplicationAwaitingDocuments |
     AuthorizationCreated |
     CardActivated |
