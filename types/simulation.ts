@@ -17,7 +17,7 @@ export interface SimulateDenyApplicationRequest {
 export interface SimulateRejectDocumentRequest {
   type: "documentReject";
   attributes: {
-    reason: "blurry image";
+    reason: string;
     reasonCode: ReasonCode;
   };
 }
