@@ -4,7 +4,7 @@ import { Relationship } from "./common"
 export type UnitEvent = AccountClosed | ApplicationDenied | ApplicationDocumentStatus | ApplicationAwaitingDocuments | AuthorizationCreated | CardActivated | CardStatusChanged | CustomerCreated |
     DocumentApproved | DocumentRejected | PaymentClearing | PaymentReturned | PaymentSent | StatementsCreated | TransactionCreated
 
-interface AccountClosed {
+export interface AccountClosed {
     id: string
     type: "account.closed"
     attributes: {
@@ -17,7 +17,7 @@ interface AccountClosed {
     }
 }
 
-interface ApplicationDenied {
+export interface ApplicationDenied {
     id: string
     type: "authorization.created"
     attributes: {
@@ -29,7 +29,7 @@ interface ApplicationDenied {
     }
 }
 
-interface ApplicationAwaitingDocuments {
+export interface ApplicationAwaitingDocuments {
     id: string
     type: "application.awaitingDocuments"
     attributes: {
@@ -40,7 +40,7 @@ interface ApplicationAwaitingDocuments {
     }
 }
 
-interface AuthorizationCreated {
+export interface AuthorizationCreated {
     id: string
     type: "authorization.created"
     attributes: {
@@ -55,7 +55,7 @@ interface AuthorizationCreated {
     }
 }
 
-interface CardActivated {
+export interface CardActivated {
     id: string
     type: "card.activated"
     attributes: {
@@ -68,7 +68,7 @@ interface CardActivated {
     }
 }
 
-interface CardStatusChanged {
+export interface CardStatusChanged {
     id: string
     type: "card.statusChanged"
     attributes: {
@@ -83,7 +83,7 @@ interface CardStatusChanged {
     }
 }
 
-interface CustomerCreated {
+export interface CustomerCreated {
     id: string
     type: "customer.created"
     attributes: {
@@ -95,7 +95,7 @@ interface CustomerCreated {
     }
 }
 
-interface DocumentApproved {
+export interface DocumentApproved {
     id: string
     type: "document.approved"
     attributes: {
@@ -107,7 +107,7 @@ interface DocumentApproved {
     }
 }
 
-interface DocumentRejected {
+export interface DocumentRejected {
     id: string
     type: "document.rejected"
     attributes: {
@@ -121,7 +121,7 @@ interface DocumentRejected {
     }
 }
 
-interface PaymentClearing {
+export interface PaymentClearing {
     id: string
     type: "payment.clearing"
     attributes: {
@@ -135,7 +135,7 @@ interface PaymentClearing {
     }
 }
 
-interface PaymentSent {
+export interface PaymentSent {
     id: string
     type: "payment.sent"
     attributes: {
@@ -149,7 +149,7 @@ interface PaymentSent {
     }
 }
 
-interface PaymentReturned {
+export interface PaymentReturned {
     id: string
     type: "payment.returned"
     attributes: {
@@ -163,7 +163,7 @@ interface PaymentReturned {
     }
 }
 
-interface StatementsCreated {
+export interface StatementsCreated {
     id: string
     type: "statements.created"
     attributes: {
@@ -171,7 +171,7 @@ interface StatementsCreated {
     }
 }
 
-interface TransactionCreated {
+export interface TransactionCreated {
     id: string
     type: "transaction.created"
     attributes: {
