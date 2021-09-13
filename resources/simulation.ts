@@ -2,9 +2,9 @@ import {BaseResource} from "."
 import {Application, ApplicationDocument} from "../types"
 import {UnitConfig, UnitResponse} from "../types"
 import {
-  SimulateApproveApplicationRequest,
-  SimulateDenyApplicationRequest,
-  SimulateRejectDocumentRequest,
+  SimulateApplicationApprove,
+  SimulateApplicationDeny,
+  SimulateDocumentReject,
 } from "../types"
 
 export class Simulations extends BaseResource {
@@ -14,7 +14,7 @@ export class Simulations extends BaseResource {
 
   public async applicationApprove(
     applicationId: string,
-    request: SimulateApproveApplicationRequest
+    request: SimulateApplicationApprove
   ): Promise<UnitResponse<Application>> {
     return this.httpPost<UnitResponse<Application>>(
       `/applications/${applicationId}/approve`,
@@ -26,7 +26,7 @@ export class Simulations extends BaseResource {
 
   public async applicationDeny(
     applicationId: string,
-    request: SimulateDenyApplicationRequest
+    request: SimulateApplicationDeny
   ): Promise<UnitResponse<Application>> {
     return this.httpPost<UnitResponse<Application>>(
       `/applications/${applicationId}/deny`,
@@ -36,7 +36,7 @@ export class Simulations extends BaseResource {
     )
   }
 
-  public async approveDocument(
+  public async documentApprove(
     applicationId: string,
     documentId: string
   ): Promise<UnitResponse<ApplicationDocument>> {
@@ -46,10 +46,10 @@ export class Simulations extends BaseResource {
     )
   }
 
-  public async rejectDocument(
+  public async documentReject(
     applicationId: string,
     documentId: string,
-    request: SimulateRejectDocumentRequest
+    request: SimulateDocumentReject
   ): Promise<UnitResponse<ApplicationDocument>> {
     return this.httpPost<UnitResponse<ApplicationDocument>>(
       `/applications/${applicationId}/documents/${documentId}/reject`,

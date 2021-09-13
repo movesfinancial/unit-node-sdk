@@ -1,20 +1,20 @@
-import { ReasonCode, Relationship } from "."
+import { ReasonCode } from "."
 
-export interface SimulateApproveApplicationRequest {
+export interface SimulateApplicationApprove {
   type: "applicationApprove"
   attributes: {
     reason: string
   }
 }
 
-export interface SimulateDenyApplicationRequest {
+export interface SimulateApplicationDeny {
   type: "applicationDeny"
   attributes: {
     reason: string
   }
 }
 
-export interface SimulateRejectDocumentRequest {
+export interface SimulateDocumentReject {
   type: "documentReject"
   attributes: {
     reason: string
@@ -22,7 +22,7 @@ export interface SimulateRejectDocumentRequest {
   }
 }
 
-interface SimulateReceiveAchPayment {
+export interface SimulateReceiveAchPayment {
   type: "achPayment"
   attributes: {
     amount: number
@@ -37,7 +37,7 @@ interface SimulateReceiveAchPayment {
   }
 }
 
-interface SimulateTransmitAchPayment {
+export interface SimulateTransmitAchPayment {
   type: "transmitAchPayment"
   relationships: {
     payment: {
@@ -47,7 +47,7 @@ interface SimulateTransmitAchPayment {
   }
 }
 
-interface SimulateClearAchPayment {
+export interface SimulateClearAchPayment {
   type: "clearAchPayment"
   relationships: {
     payment: {
@@ -57,7 +57,7 @@ interface SimulateClearAchPayment {
   }
 }
 
-interface SimulateReturnAchPayment {
+export interface SimulateReturnAchPayment {
   type: "returnAchPayment"
   relationships: {
     payment: {
@@ -67,7 +67,7 @@ interface SimulateReturnAchPayment {
   }
 }
 
-interface SimulateReceiveWirePayment {
+export interface SimulateReceiveWirePayment {
   type: "wirePayment"
   attributes: {
     amount: number
@@ -83,7 +83,7 @@ interface SimulateReceiveWirePayment {
   }
 }
 
-interface SimulateCardAuthorization {
+export interface SimulateCardAuthorization {
   type: "authorization"
   attributes: {
     amount: number
@@ -106,7 +106,7 @@ interface SimulateCardAuthorization {
   }
 }
 
-interface SimulateCardPurchase {
+export interface SimulateCardPurchase {
   type: "purchaseTransaction"
   attributes: {
     amount: number
