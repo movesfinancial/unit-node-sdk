@@ -1,135 +1,135 @@
-import { ReasonCode, Relationship } from ".";
+import { ReasonCode, Relationship } from "."
 
 export interface SimulateApproveApplicationRequest {
-  type: "applicationApprove";
+  type: "applicationApprove"
   attributes: {
-    reason: string;
-  };
+    reason: string
+  }
 }
 
 export interface SimulateDenyApplicationRequest {
-  type: "applicationDeny";
+  type: "applicationDeny"
   attributes: {
-    reason: string;
-  };
+    reason: string
+  }
 }
 
 export interface SimulateRejectDocumentRequest {
-  type: "documentReject";
+  type: "documentReject"
   attributes: {
-    reason: string;
-    reasonCode: ReasonCode;
-  };
+    reason: string
+    reasonCode: ReasonCode
+  }
 }
 
 interface SimulateReceiveAchPayment {
-  type: "achPayment";
+  type: "achPayment"
   attributes: {
-    amount: number;
-    direction: "Credit" | "Debit";
-    description: string;
-  };
+    amount: number
+    direction: "Credit" | "Debit"
+    description: string
+  }
   relationships: {
     account: {
-      type: "depositAccount";
-      id: string;
-    };
-  };
+      type: "depositAccount"
+      id: string
+    }
+  }
 }
 
 interface SimulateTransmitAchPayment {
-  type: "transmitAchPayment";
+  type: "transmitAchPayment"
   relationships: {
     payment: {
-      type: "achPayment";
-      id: string;
-    };
-  };
+      type: "achPayment"
+      id: string
+    }
+  }
 }
 
 interface SimulateClearAchPayment {
-  type: "clearAchPayment";
+  type: "clearAchPayment"
   relationships: {
     payment: {
-      type: "achPayment";
-      id: string;
-    };
-  };
+      type: "achPayment"
+      id: string
+    }
+  }
 }
 
 interface SimulateReturnAchPayment {
-  type: "returnAchPayment";
+  type: "returnAchPayment"
   relationships: {
     payment: {
-      type: "achPayment";
-      id: string;
-    };
-  };
+      type: "achPayment"
+      id: string
+    }
+  }
 }
 
 interface SimulateReceiveWirePayment {
-  type: "wirePayment";
+  type: "wirePayment"
   attributes: {
-    amount: number;
-    description: string;
-  };
+    amount: number
+    description: string
+  }
   relationships: {
     account: {
       data: {
-        type: "depositAccount";
-        id: string;
-      };
-    };
-  };
+        type: "depositAccount"
+        id: string
+      }
+    }
+  }
 }
 
 interface SimulateCardAuthorization {
-  type: "authorization";
+  type: "authorization"
   attributes: {
-    amount: number;
-    cardLast4Digits: string;
-    merchantName: string;
+    amount: number
+    cardLast4Digits: string
+    merchantName: string
     /**
      * The 4-digit ISO 18245 merchant category code (MCC). Use any number (e.g. 1000 for testing).
      */
-    merchantType: number;
-    merchantLocation: string;
-    recurring?: boolean;
-  };
+    merchantType: number
+    merchantLocation: string
+    recurring?: boolean
+  }
   relationships: {
     account: {
       data: {
-        type: "depositAccount";
-        id: string;
-      };
-    };
-  };
+        type: "depositAccount"
+        id: string
+      }
+    }
+  }
 }
 
 interface SimulateCardPurchase {
-  type: "purchaseTransaction";
+  type: "purchaseTransaction"
   attributes: {
-    amount: number;
-    direction: string;
-    merchantName: string;
+    amount: number
+    direction: string
+    merchantName: string
     /**
      * The 4-digit ISO 18245 merchant category code (MCC). Use any number (e.g. 1000 for testing).
      */
-    merchantType: number;
-    merchantLocation: string;
+    merchantType: number
+    merchantLocation: string
     coordinates?: {
-      longitude: number;
-      latitude: number;
-    };
-    last4Digits: string;
-    recurring: false;
-  };
+      longitude: number
+      latitude: number
+    }
+    last4Digits: string
+    recurring: false
+  }
   relationships: {
     account: {
       data: {
-        type: "depositAccount";
-        id: string;
-      };
-    };
-  };
+        type: "depositAccount"
+        id: string
+      }
+    }
+  }
 }

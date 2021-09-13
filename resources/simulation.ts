@@ -1,15 +1,15 @@
-import { BaseResource } from ".";
-import { Application, ApplicationDocument, ReasonCode } from "../types";
-import { UnitConfig, UnitResponse } from "../types/common";
+import {BaseResource} from "."
+import {Application, ApplicationDocument} from "../types"
+import {UnitConfig, UnitResponse} from "../types"
 import {
   SimulateApproveApplicationRequest,
   SimulateDenyApplicationRequest,
   SimulateRejectDocumentRequest,
-} from "../types/simulation";
+} from "../types"
 
 export class Simulations extends BaseResource {
   constructor(token: string, basePath: string, config?: UnitConfig) {
-    super(token, basePath + "/statements", config);
+    super(token, basePath + "/statements", config)
   }
 
   public async applicationApprove(
@@ -21,7 +21,7 @@ export class Simulations extends BaseResource {
       {
         data: request,
       }
-    );
+    )
   }
 
   public async applicationDeny(
@@ -33,7 +33,7 @@ export class Simulations extends BaseResource {
       {
         data: request,
       }
-    );
+    )
   }
 
   public async approveDocument(
@@ -43,7 +43,7 @@ export class Simulations extends BaseResource {
     return this.httpPost<UnitResponse<ApplicationDocument>>(
       `/applications/${applicationId}/documents/${documentId}/approve`,
       {}
-    );
+    )
   }
 
   public async rejectDocument(
@@ -56,6 +56,6 @@ export class Simulations extends BaseResource {
       {
         data: request,
       }
-    );
+    )
   }
 }
