@@ -1,6 +1,6 @@
 {
   "name": "@movesfinancial/unit-node-sdk",
-  "version": "0.6.2-fork.9-beta.1",
+  "version": "0.8.2",
   "description": "",
   "main": "dist/unit.js",
   "types": "dist/unit.d.ts",
@@ -36,6 +36,6 @@
     "typescript": "^4.2.4"
   },
   "dependencies": {
-    "axios": "^0.21.1"
+    "axios": "^0.21.2"
   }
 }
