@@ -2,7 +2,7 @@ import { Address, Coordinates, Counterparty, Relationship } from "./common"
 
 export type Transaction = OriginatedAchTransaction | ReceivedAchTransaction | ReturnedAchTransaction | ReturnedReceivedAchTransaction | DishonoredAchTransaction |
     BookTransaction | PurchaseTransaction | AtmTransaction | FeeTransaction | CardReversalTransaction | CardTransaction | WireTransaction |
-    ReleaseTransaction | AdjustmentTransaction | InterestTransaction | DisputeTransaction
+    ReleaseTransaction | AdjustmentTransaction | InterestTransaction | DisputeTransaction | CheckDepositTransaction | ReturnedCheckDepositTransaction
 
 export interface BaseTransaction {
     /**
@@ -36,7 +36,7 @@ export interface BaseTransactionAttributes {
     /**
      * The direction in which the funds flow. Common to all transaction types.
      */
-    direction: string
+    direction: "Credit" | "Debit"
 
     /**
      * The amount (cents) of the transaction. Common to all transaction types.
@@ -57,7 +57,7 @@ export interface BaseTransactionAttributes {
      * See [Tags](https://developers.unit.co/#tags).
      * Inherited from the payment tags (see [Tag Inheritance](https://developers.unit.co/#tag-inheritance)).
      */
-    tags: Record<string, any>
+    tags?: Record<string, any>
 }
 
 export interface BaseTransactionRelationships {
@@ -277,17 +277,17 @@ export type BookTransaction = BaseTransaction & {
          * The party on the other end of the transaction.
          */
         counterparty: Counterparty
-
-        /**
-         * The ACH Trace Number.
-         */
-        traceNumber: number
     }
 
     /**
      * Describes relationships between the transaction resource and other resources (account and customer).
      */
     relationships: {
+        /**
+         * The list of Customers the deposit account belongs to. This relationship is only available if the account belongs to multiple individual customers.
+         */
+        customers?: Relationship[]
+
         /**
          * The account of the counterparty.
          */
@@ -297,6 +297,11 @@ export type BookTransaction = BaseTransaction & {
          * The counterparty customer.
          */
         counterpartyCustomer: Relationship
+
+        /**
+         * The payment belonging to this transaction
+         */
+        payment: Relationship
     }
 }
 
@@ -349,6 +354,21 @@ export type PurchaseTransaction = BaseTransaction & {
          * Indicates whether the transaction is recurring
          */
         recurring: boolean
+
+        /**
+         * Optional. The interchange share for this transaction. Calculated at the end of each day, see the transaction.updated event.
+         */
+        interchange?: number
+
+        /**
+         * Indicates whether the transaction was created over an electronic network (primarily the internet).
+         */
+        ecommerce: boolean
+
+        /**
+         * Indicates whether the card was present when the transaction was created.
+         */
+        cardPresent: boolean
     }
 
     /**
@@ -582,5 +602,59 @@ export type DisputeTransaction = BaseTransaction & {
          * The reason for the dispute transaction, one of: ProvisionalCredit, ProvisionalCreditReversalDenied, ProvisionalCreditReversalResolved, FinalCredit.
          */
         reason: "ProvisionalCredit" | "ProvisionalCreditReversalDenied" | "ProvisionalCreditReversalResolved" | "FinalCredit"
+    }
+}
+
+export type CheckDepositTransaction = BaseTransaction & {
+    /**
+     * Type of the transaction resource. The value is always checkDepositTransaction.
+     */
+    type: "checkDepositTransaction"
+
+    /**
+     * Describes relationships between the transaction resource and other resources (account, customer, checkDeposi).
+     */
+    relationships: {
+        /**
+         * The list of Customers the deposit account belongs to. This relationship is only available if the account belongs to multiple individual customers.
+         */
+        customers?: Relationship[]
+
+        /**
+         * The Check Deposit the transaction is related to.
+         */
+        checkDeposit: Relationship
+    }
+}
+
+export type ReturnedCheckDepositTransaction = BaseTransaction & {
+    /**
+     * Type of the transaction resource. The value is always returnedCheckDepositTransaction.
+     */
+    type: "returnedCheckDepositTransaction"
+
+    /**
+    * JSON object representing the transaction data.
+    */
+    attributes: {
+        /**
+         * The reason for the transaction return.
+         */
+        reason: string
+    }
+
+    /**
+     * Describes relationships between the transaction resource and other resources (account, customer, checkDeposi).
+     */
+    relationships: {
+        /**
+         * The list of Customers the deposit account belongs to. This relationship is only available if the account belongs to multiple individual customers.
+         */
+        customers?: Relationship[]
+
+        /**
+         * The Check Deposit the transaction is related to.
+         */
+        checkDeposit: Relationship
     }
 }

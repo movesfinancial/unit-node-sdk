@@ -22,6 +22,21 @@ export interface CreateApplicationFormRequest {
          * Optional. Add data that is already known about the end-customer to be auto populated on the form.
          */
         applicantDetails?: ApplicationFormPrefill
+        /**
+         * Optional. Array of Individual, Business or SoleProprietorship. Restrict the available application type for this specific application.
+         */
+        allowedApplicationTypes?: Array<"Individual" | "SoleProprietorship" | "Business">
+    }
+    relationships?: {
+        /**
+         * See [Create an Application Form from an existing Application](https://developers.unit.co/application-forms/#create-an-application-form-from-an-existing-application)
+         */
+        application?: {
+            data: {
+                type: "application"
+                id: string
+            }
+        }
     }
 }
 
@@ -91,7 +106,7 @@ export interface ApplicationFormPrefill {
     contact?: BusinessContact
     /**
      * Business. Optional. Officer representing the business
-     * (must be the CEO, COO, CFO, President or BenefitsAdministrationOfficer). To onboard a business successfully,
+     * (must be the CEO, COO, CFO, President, BenefitsAdministrationOfficer, CIO, VP, AVP, Treasurer, Secretary, Controller, Manager, Partner or Member). To onboard a business successfully,
      * you must provide the officer's personal details.
      */
     officer?: Officer

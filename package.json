@@ -1,6 +1,6 @@
 {
   "name": "@movesfinancial/unit-node-sdk",
-  "version": "0.8.2-fork.1",
+  "version": "0.8.17",
   "description": "",
   "main": "dist/unit.js",
   "types": "dist/unit.d.ts",
@@ -29,13 +29,14 @@
   "homepage": "https://github.com/movesfinancial/unit-node-sdk#readme",
   "devDependencies": {
     "@types/node": "^15.0.2",
-    "@typescript-eslint/eslint-plugin": "^4.28.0",
-    "@typescript-eslint/parser": "^4.28.0",
+    "@typescript-eslint/eslint-plugin": "^5.1.0",
+    "@typescript-eslint/parser": "^5.1.0",
     "dotenv": "^10.0.0",
-    "eslint": "^7.29.0",
+    "eslint": "^8.0.1",
     "typescript": "^4.2.4"
   },
   "dependencies": {
-    "axios": "^0.21.2"
+    "axios": "^0.21.2",
+    "crypto": "^1.0.1"
   }
 }
