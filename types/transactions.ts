@@ -58,6 +58,11 @@ export interface BaseTransactionAttributes {
      * Inherited from the payment tags (see [Tag Inheritance](https://developers.unit.co/#tag-inheritance)).
      */
     tags?: Record<string, any>
+
+    /**
+     * Support arbitrary keys (to make this type useful even when it has drifted from the real implementation)
+     */
+    [k: string]: unknown
 }
 
 export interface BaseTransactionRelationships {
@@ -70,6 +75,11 @@ export interface BaseTransactionRelationships {
      * The customer the deposit account belongs to. The customer is either a business or a individual.
      */
     customer?: Relationship
+
+    /**
+     * Support arbitrary keys (to make this type useful even when it has drifted from the real implementation)
+     */
+    [k: string]: unknown
 }
 
 // OriginatedAchTransaction
