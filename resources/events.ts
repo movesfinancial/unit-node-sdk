@@ -13,9 +13,13 @@ export class Events extends BaseResource {
     }
 
     public async list(params?: EventListParams): Promise<UnitResponse<UnitEvent[]>> {
-        const parameters = {
+        const parameters: Record<string, unknown> = {
             "page[limit]": (params?.limit ? params?.limit : 100),
             "page[offset]": (params?.offset ? params?.offset : 0)
+        }
+
+        if(params?.filter?.type){
+            parameters["filter[type]"] = params.filter.type
         }
 
         return this.httpGet<UnitResponse<UnitEvent[]>>("", { params: parameters })
@@ -38,4 +42,11 @@ export interface EventListParams {
      * default: 0
      */
     offset?: number
+
+    filter?: {
+        /**
+         * Optional. Filter Events by Event type.
+         */
+        type?: string[]
+    }
 }
