@@ -4,7 +4,10 @@ export type UnitEvent =
     AccountClosed |
     ApplicationDenied |
     ApplicationAwaitingDocuments |
+    AuthorizationAmountChanged |
+    AuthorizationCanceled |
     AuthorizationCreated |
+    AuthorizationDeclined |
     CardActivated |
     CardStatusChanged |
     CustomerCreated |
@@ -14,7 +17,7 @@ export type UnitEvent =
     PaymentReturned |
     PaymentSent |
     StatementsCreated |
-    TransactionCreated
+    TransactionCreated;
 
 export interface BaseEvent {
     id: string
@@ -59,11 +62,61 @@ export type ApplicationAwaitingDocuments = BaseEvent & {
     }
 }
 
+export type AuthorizationAmountChanged = BaseEvent & {
+    type: "authorization.amountChanged"
+    attributes: {
+        cardLast4Digits: string
+        recurring: boolean
+        oldAmount: number
+        newAmount: number
+    }
+    relationships: {
+        authorization: Relationship
+        account: Relationship
+        customer: Relationship
+    }
+}
+
+
+export type AuthorizationCanceled = BaseEvent & {
+    type: "authorization.canceled"
+    attributes: {
+        amount: number
+        cardLast4Digits: string
+        recurring: boolean
+    }
+    relationships: {
+        authorization: Relationship
+        account: Relationship
+        customer: Relationship
+    }
+}
+
 export type AuthorizationCreated = BaseEvent & {
     type: "authorization.created"
     attributes: {
         cardLast4Digits: string
         recurring: boolean
+        amount: number
+        merchant: {
+            name: string
+            type: string
+        }
+    }
+    relationships: {
+        authorization: Relationship
+        account: Relationship
+        customer: Relationship
+    }
+}
+
+export type AuthorizationDeclined = BaseEvent & {
+    type: "authorization.declined"
+    attributes: {
+        amount: number
+        cardLast4Digits: string
+        recurring: boolean
+        reason: string
     }
     relationships: {
         authorization: Relationship
