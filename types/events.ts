@@ -17,7 +17,7 @@ export type UnitEvent =
     PaymentReturned |
     PaymentSent |
     StatementsCreated |
-    TransactionCreated;
+    TransactionCreated
 
 export interface BaseEvent {
     id: string
