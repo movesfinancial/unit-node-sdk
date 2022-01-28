@@ -30,6 +30,17 @@ export interface Authorization {
          */
         cardLast4Digits: string
 
+        /**
+         * The current status of the authorization.
+         * See: https://docs.unit.co/cards-authorizations#authorization-statuses
+         */
+        status: "Authorized" | "Completed" | "Canceled" | "Declined"
+
+        /**
+         * Optional. The reason the authorization was declined. Available only when status is Declined
+         */
+        declineReason: string
+
         merchant: {
             /**
              * The name of the merchant.
@@ -55,6 +66,10 @@ export interface Authorization {
         /**
          * Indicates whether the authorization is recurring
          */
+
+        recurring: boolean
+
+        tags?: Record<string, unknown>
     }
 
     /**
@@ -69,6 +84,22 @@ export interface Authorization {
         /**
          * The customer the deposit account belongs to. The customer is either a business or a individual.
          */
-        customer: Relationship
+        customer?: Relationship
+
+        /**
+         * The debit card involved in the authorization.
+         */
+        card: Relationship
+
+        /**
+         * The list of Customers the deposit account belongs to. This relationship is only available if the
+         * account belongs to multiple individual customers.
+         */
+        customers?: Relationship[]
+
+        /**
+         * The preceding authorization request, if present (see Authorization Requests).
+         */
+        authorizationRequest?: Relationship[]
     }
 }
