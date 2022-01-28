@@ -66,7 +66,6 @@ export interface Authorization {
         /**
          * Indicates whether the authorization is recurring
          */
-
         recurring: boolean
 
         tags?: Record<string, unknown>
