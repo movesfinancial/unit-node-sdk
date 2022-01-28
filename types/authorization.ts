@@ -39,7 +39,7 @@ export interface Authorization {
         /**
          * Optional. The reason the authorization was declined. Available only when status is Declined
          */
-        declineReason: string
+        declineReason?: string
 
         merchant: {
             /**
