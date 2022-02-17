@@ -10,7 +10,7 @@ export class Authorizations extends BaseResource {
 
     public async get(id: string, filterNonAuthorized?: boolean ): Promise<UnitResponse<Authorization>> {
         const parameters = {
-            "filter[includeNonAuthorized]": filterNonAuthorized ?? false
+            ...(filterNonAuthorized && {"filter[includeNonAuthorized]": filterNonAuthorized})
         }
         return this.httpGet<UnitResponse<Authorization>>(`/${id}`, { params: parameters })
     }
