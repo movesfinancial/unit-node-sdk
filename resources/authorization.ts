@@ -8,8 +8,11 @@ export class Authorizations extends BaseResource {
         super(token, basePath + "/authorizations", config)
     }
 
-    public async get(id: string): Promise<UnitResponse<Authorization>> {
-        return this.httpGet<UnitResponse<Authorization>>(`/${id}`)
+    public async get(id: string, params?: AuthorizationGetQueryParams ): Promise<UnitResponse<Authorization>> {
+        const parameters = {
+            ...(params?.includeNonAuthorized && {"filter[includeNonAuthorized]": params.includeNonAuthorized})
+        }
+        return this.httpGet<UnitResponse<Authorization>>(`/${id}`, { params: parameters })
     }
 
     public async find(params?: AuthorizationQueryParams): Promise<UnitResponse<Authorization[]>> {
@@ -23,6 +26,14 @@ export class Authorizations extends BaseResource {
 
         return this.httpGet<UnitResponse<Authorization[]>>("", { params: parameters })
     }
+}
+
+export interface AuthorizationGetQueryParams {
+    /**
+     * Optional. Include authorizations from all statuses.
+     * default: false
+     */
+    includeNonAuthorized?: boolean
 }
 
 export interface AuthorizationQueryParams {
