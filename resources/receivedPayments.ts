@@ -1,5 +1,5 @@
 import { Account } from "../types/account"
-import { Include, UnitConfig, UnitResponse } from "../types/common"
+import {Include, Meta, UnitConfig, UnitResponse} from "../types/common"
 import { Customer } from "../types/customer"
 import { Transaction } from "../types/transactions"
 import { BaseResource } from "./baseResource"
@@ -23,7 +23,7 @@ export class ReceivedPayments extends BaseResource {
         return this.httpGet<UnitResponse<AchReceivedPayment> & Include<Account[] | Customer[] | Transaction[]>>(`/${id}`,{params})
     }
 
-    public async list(params?: ReceivedPaymentListParams) : Promise<UnitResponse<AchReceivedPayment[] & Include<Account[] | Customer[] | Transaction[]>>> {
+    public async list(params?: ReceivedPaymentListParams) : Promise<UnitResponse<AchReceivedPayment[] & Include<Account[] | Customer[] | Transaction[]> & Meta>> {
         const parameters = {
             "page[limit]": (params?.limit ? params.limit : 100),
             "page[offset]": (params?.offset ? params.offset : 0),
@@ -36,7 +36,7 @@ export class ReceivedPayments extends BaseResource {
             ...(params?.status && { "filter[status]": params.status})
         }
 
-        return this.httpGet<UnitResponse<AchReceivedPayment[] & Include<Account[] | Customer[] | Transaction[]>>>("", {params: parameters})
+        return this.httpGet<UnitResponse<AchReceivedPayment[] & Include<Account[] | Customer[] | Transaction[]>  & Meta>>("", {params: parameters})
     }
 }
 
