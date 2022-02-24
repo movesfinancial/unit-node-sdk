@@ -23,7 +23,7 @@ export class ReceivedPayments extends BaseResource {
         return this.httpGet<UnitResponse<AchReceivedPayment> & Include<Account[] | Customer[] | Transaction[]>>(`/${id}`,{params})
     }
 
-    public async list(params?: ReceivedPaymentListParams) : Promise<UnitResponse<AchReceivedPayment[] & Include<Account[] | Customer[] | Transaction[]> & Meta>> {
+    public async list(params?: ReceivedPaymentListParams) : Promise<UnitResponse<AchReceivedPayment[]> & Include<Account[] | Customer[] | Transaction[]> & Meta> {
         const parameters = {
             "page[limit]": (params?.limit ? params.limit : 100),
             "page[offset]": (params?.offset ? params.offset : 0),
@@ -36,7 +36,7 @@ export class ReceivedPayments extends BaseResource {
             ...(params?.status && { "filter[status]": params.status})
         }
 
-        return this.httpGet<UnitResponse<AchReceivedPayment[] & Include<Account[] | Customer[] | Transaction[]>  & Meta>>("", {params: parameters})
+        return this.httpGet<UnitResponse<AchReceivedPayment[]> & Include<Account[] | Customer[] | Transaction[]>  & Meta>("", {params: parameters})
     }
 }
 
