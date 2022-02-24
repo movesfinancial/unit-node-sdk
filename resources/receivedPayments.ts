@@ -38,6 +38,10 @@ export class ReceivedPayments extends BaseResource {
 
         return this.httpGet<UnitResponse<AchReceivedPayment[]> & Include<Account[] | Customer[] | Transaction[]>  & Meta>("", {params: parameters})
     }
+
+    public async advance(id:string): Promise<UnitResponse<AchReceivedPayment>> {
+        return this.httpPost<UnitResponse<AchReceivedPayment>>(`/${id}/advance` )
+    }
 }
 
 export interface ReceivedPaymentListParams {
