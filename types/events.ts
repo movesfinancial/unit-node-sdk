@@ -1,4 +1,5 @@
 import { Relationship } from "./common"
+import {ReceivedPaymentStatus} from "./receivedPayments"
 
 export type UnitEvent =
     AccountClosed |
@@ -16,6 +17,10 @@ export type UnitEvent =
     PaymentClearing |
     PaymentReturned |
     PaymentSent |
+    ReceivedPaymentAdvanced |
+    ReceivedPaymentCompleted |
+    ReceivedPaymentCreated |
+    ReceivedPaymentReturned |
     StatementsCreated |
     TransactionCreated
 
@@ -206,6 +211,66 @@ export type PaymentReturned = BaseEvent & {
     }
     relationships: {
         payment: Relationship
+        account: Relationship
+        customer: Relationship
+    }
+}
+
+export type ReceivedPaymentCreated = BaseEvent & {
+    type: "receivedPayment.created"
+    attributes: {
+        status: ReceivedPaymentStatus
+        type: "Ach"
+        amount: number
+        completionDate: string
+        companyName: string
+        counterpartyRoutingNumber: string
+        description: string
+        traceNumber: string
+        secCode: string
+        addenda: string
+    }
+    relationships: {
+        receivedPayment: Relationship
+        account: Relationship
+        customer: Relationship
+    }
+}
+
+export type ReceivedPaymentAdvanced = BaseEvent & {
+    type: "receivedPayment.advanced"
+    attributes: {
+        previousStatus: ReceivedPaymentStatus
+        wasAdvanced: boolean
+    }
+    relationships: {
+        receivedPayment: Relationship
+        account: Relationship
+        customer: Relationship
+    }
+}
+
+export type ReceivedPaymentCompleted = BaseEvent & {
+    type: "receivedPayment.advanced"
+    attributes: {
+        previousStatus: ReceivedPaymentStatus
+        wasAdvanced: boolean
+    }
+    relationships: {
+        receivedPayment: Relationship
+        account: Relationship
+        customer: Relationship
+    }
+}
+
+export type ReceivedPaymentReturned = BaseEvent & {
+    type: "receivedPayment.advanced"
+    attributes: {
+        previousStatus: ReceivedPaymentStatus
+        wasAdvanced: boolean
+    }
+    relationships: {
+        receivedPayment: Relationship
         account: Relationship
         customer: Relationship
     }
