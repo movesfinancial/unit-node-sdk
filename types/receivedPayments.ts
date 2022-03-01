@@ -10,7 +10,7 @@ export interface AchReceivedPayment {
         status: ReceivedPaymentStatus
         wasAdvanced: boolean
         completionDate: string
-        returnReason: string
+        returnReason?: string
         amount: number
         description: string
         addenda?: string
@@ -23,7 +23,8 @@ export interface AchReceivedPayment {
     relationships:{
         account: Relationship
         customer: Relationship
-        receivedPaymentTransaction: Relationship
+        receivePaymentTransaction: Relationship
+        paymentAdvanceTransaction: Relationship
         repayPaymentAdvanceTransaction: Relationship
     }
 }
@@ -31,6 +32,6 @@ export interface AchReceivedPayment {
 export interface PatchAchReceivedPaymentRequest {
     type: "achReceivedPayment"
     attributes: {
-        tags: object
+        tags?: Record<string, unknown>
     }
 }
