@@ -251,7 +251,7 @@ export type ReceivedPaymentAdvanced = BaseEvent & {
 }
 
 export type ReceivedPaymentCompleted = BaseEvent & {
-    type: "receivedPayment.advanced"
+    type: "receivedPayment.completed"
     attributes: {
         previousStatus: ReceivedPaymentStatus
         wasAdvanced: boolean
@@ -264,7 +264,7 @@ export type ReceivedPaymentCompleted = BaseEvent & {
 }
 
 export type ReceivedPaymentReturned = BaseEvent & {
-    type: "receivedPayment.advanced"
+    type: "receivedPayment.returned"
     attributes: {
         previousStatus: ReceivedPaymentStatus
         wasAdvanced: boolean
