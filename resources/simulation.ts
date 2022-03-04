@@ -1,5 +1,5 @@
 import {BaseResource} from "."
-import {Application, ApplicationDocument} from "../types"
+import {AchReceivedPayment, Application, ApplicationDocument, SimulateCreateAchReceivedPayment} from "../types"
 import {UnitConfig, UnitResponse} from "../types"
 import {
   SimulateApplicationApprove,
@@ -9,7 +9,7 @@ import {
 
 export class Simulations extends BaseResource {
   constructor(token: string, basePath: string, config?: UnitConfig) {
-    super(token, basePath + "/statements", config)
+    super(token, basePath + "/sandbox", config)
   }
 
   public async applicationApprove(
@@ -56,6 +56,25 @@ export class Simulations extends BaseResource {
       {
         data: request,
       }
+    )
+  }
+
+  public async createAchReceivedPayment(
+      request: SimulateCreateAchReceivedPayment
+  ): Promise<UnitResponse<AchReceivedPayment>> {
+    return this.httpPost<UnitResponse<AchReceivedPayment>>(
+        "/received-payments",
+        {
+          data: request,
+        }
+    )
+  }
+
+  public async completeAchReceivedPayment(
+      id: string,
+  ): Promise<UnitResponse<AchReceivedPayment>> {
+    return this.httpPost<UnitResponse<AchReceivedPayment>>(
+        `/received-payments/${id}/complete`,
     )
   }
 }
