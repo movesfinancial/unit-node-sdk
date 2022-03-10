@@ -357,6 +357,19 @@ export class UnitError extends Error {
     }
 }
 
+export interface Meta {
+    /**
+     * JSON object that contains pagination data
+     */
+    meta:{
+        pagination: {
+            total: number
+            limit: number
+            offset: number
+        }
+    }
+}
+
 // https://docs.unit.co/#intro-errors
 export interface UnitErrorPayload {
     status: number // http status code

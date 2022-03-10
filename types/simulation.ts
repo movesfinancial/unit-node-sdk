@@ -133,3 +133,22 @@ export interface SimulateCardPurchase {
     }
   }
 }
+
+export interface SimulateCreateAchReceivedPayment {
+  type: "achReceivedPayment"
+  attributes: {
+    amount: number
+    description: string
+    companyName: string
+    completionDate: string
+    secCode: string
+  }
+  relationships: {
+    account: {
+      data: {
+        type: "depositAccount"
+        id: string
+      }
+    }
+  }
+}
