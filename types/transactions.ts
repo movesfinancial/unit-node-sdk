@@ -497,6 +497,32 @@ export type CardTransaction = BaseTransaction & {
          * The last 4 digits of the debit card involved in the transaction.
          */
         cardLast4Digits: string
+        merchant:{
+            /**
+             * The name of the merchant.
+             */
+            name: string
+            /**
+             * The 4-digit ISO 18245 merchant category code (MCC).
+             */
+            type: number
+            /**
+             * The merchant category, described by the MCC code (see this reference for the list of category descriptions).
+             */
+            category: string
+            /**
+             * Optional. The location (city, state, etc.) of the merchant.
+             */
+            location:string
+        }
+        digitalWallet: string
+        paymentMethod:string
+        interchange:string
+        recurring: boolean
+        cardVerificationData:{
+            verificationMethod:string
+        }
+        cardNetwork:string
     }
 }
 
