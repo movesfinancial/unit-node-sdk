@@ -1,4 +1,6 @@
-import { Relationship } from "./common"
+import { Merchant, Relationship } from "./common"
+
+export type AuthorizationStatus = "Authorized" | "Completed" | "Canceled" | "Declined"
 
 export interface Authorization {
     /**
@@ -31,44 +33,21 @@ export interface Authorization {
         cardLast4Digits: string
 
         /**
-         * The current status of the authorization.
-         * See: https://docs.unit.co/cards-authorizations#authorization-statuses
+         * One of Authorized, Completed, Canceled, Declined, see Authorization Statuses.
          */
-        status: "Authorized" | "Completed" | "Canceled" | "Declined"
+        status: AuthorizationStatus
 
         /**
          * Optional. The reason the authorization was declined. Available only when status is Declined
          */
         declineReason?: string
 
-        merchant: {
-            /**
-             * The name of the merchant.
-             */
-            name: string
-
-            /**
-             * The 4-digit ISO 18245 merchant category code (MCC).
-             */
-            type: number
-
-            /**
-             * The merchant category, described by the MCC code (see this reference for the list of category descriptions).
-             */
-            category: string
-
-            /**
-             * Optional. The location (city, state, etc.) of the merchant.
-             */
-            location?: string
-        }
+        merchant: Merchant
 
         /**
          * Indicates whether the authorization is recurring
          */
         recurring: boolean
-
-        tags?: Record<string, unknown>
     }
 
     /**
@@ -83,22 +62,11 @@ export interface Authorization {
         /**
          * The customer the deposit account belongs to. The customer is either a business or a individual.
          */
-        customer?: Relationship
+        customer: Relationship
 
         /**
          * The debit card involved in the authorization.
          */
         card: Relationship
-
-        /**
-         * The list of Customers the deposit account belongs to. This relationship is only available if the
-         * account belongs to multiple individual customers.
-         */
-        customers?: Relationship[]
-
-        /**
-         * The preceding authorization request, if present (see Authorization Requests).
-         */
-        authorizationRequest?: Relationship[]
     }
 }

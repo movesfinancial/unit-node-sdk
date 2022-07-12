@@ -1,5 +1,7 @@
 import { Relationship } from "./common"
 
+type Permissions = "CreditOnly" | "DebitOnly" | "CreditAndDebit"
+
 export interface AchCounterparty {
     /**
      * Identifier of the ACH counterparty resource.
@@ -54,7 +56,7 @@ export interface AchCounterparty {
         /**
          * Either CreditOnly or CreditAndDebit.
          */
-        permissions: string
+        permissions: Permissions
     }
 
     /**
@@ -70,7 +72,7 @@ export interface AchCounterparty {
 
 export type CreateCounterpartyRequest = CreateCounterpartyWithoutTokenRequest | CreateCounterpartyWithTokenRequest
 
-interface CreateCounterpartyWithoutTokenRequest {
+export interface CreateCounterpartyWithoutTokenRequest {
     type: "achCounterparty"
     attributes: {
         /**
@@ -97,6 +99,16 @@ interface CreateCounterpartyWithoutTokenRequest {
          * Either Business, Person or Unknown.
          */
         type: "Business" | "Person" | "Unknown"
+
+        /**
+         * See [Tags](https://developers.unit.co/#tags).
+         */
+        tags?: object
+
+        /**
+         * See [Idempotency.](https://developers.unit.co/#intro-idempotency)
+         */
+        idempotencyKey?: string
     }
 
     relationships: {
@@ -107,7 +119,7 @@ interface CreateCounterpartyWithoutTokenRequest {
     }
 }
 
-interface CreateCounterpartyWithTokenRequest {
+export interface CreateCounterpartyWithTokenRequest {
     type: "achCounterparty"
     attributes: {
         /**
@@ -130,6 +142,21 @@ interface CreateCounterpartyWithTokenRequest {
          * Either Business, Person or Unknown.
          */
         type: "Business" | "Person" | "Unknown"
+
+        /**
+         * See [Tags](https://developers.unit.co/#tags).
+         */
+        tags?: object
+
+        /**
+         * Optional, custom counterparty permissions. Either CreditOnly, DebitOnly, CreditAndDebit. Default is CreditAndDebit.
+         */
+        permissions?: Permissions
+
+        /**
+         * See [Idempotency.](https://developers.unit.co/#intro-idempotency)
+         */
+        idempotencyKey?: string
     }
 
     relationships: {
@@ -152,6 +179,16 @@ export interface PatchCounterpartyRequest {
      * Optional, default to false. Verify the name of the counterparty, if the name verification fails the request will fail with code field set to NameVerificationFailed.
      */
     verifyName?: boolean
+
+    /**
+     * Optional, custom counterparty permissions. Either CreditOnly, DebitOnly, CreditAndDebit
+     */
+    permissions?: Permissions
+
+    /**
+     * See [Tags](https://developers.unit.co/#tags).
+     */
+    tags?: object
 }
 
 export interface CounterpartyBalance {

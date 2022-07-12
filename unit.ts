@@ -19,10 +19,13 @@ import { Returns } from "./resources/returns"
 import { ApplicationForms } from "./resources/applicationForm"
 import { Simulations } from "./resources/simulation"
 import { AccountsEndOfDay } from "./resources/accountEndOfDay"
-import { BillPays } from "./resources"
+import { BillPays, Rewards } from "./resources"
 import { Institutions } from "./resources/institutions"
 import { AtmLocations } from "./resources/atmLocations"
-import {ReceivedPayments} from "./resources/receivedPayments"
+import { CheckDeposits } from "./resources/checkDeposit"
+import { ReceivedPayments } from "./resources/receivedPayments"
+import { RecurringPayments } from "./resources/recurringPayments"
+import { OrgTokens } from "./resources/orgToken"
 
 export class Unit {
     public applications: Applications
@@ -37,6 +40,7 @@ export class Unit {
     public fees: Fees
     public counterparties: Counterparties
     public payments: Payments
+    public receivedPayments: ReceivedPayments
     public authorizations: Authorizations
     public authorizationRequests: AuthorizationRequests
     public helpers: typeof helpers
@@ -48,7 +52,10 @@ export class Unit {
     public billPays: BillPays
     public institutions: Institutions
     public atmLocations: AtmLocations
-    public receivedPayments: ReceivedPayments
+    public checkDeposits: CheckDeposits
+    public rewards: Rewards
+    public recurringPayments: RecurringPayments
+    public orgTokens: OrgTokens
 
     constructor(token: string, basePath: string, config?: UnitConfig) {
         // remove all trailing slashes from user-provided basePath
@@ -67,6 +74,7 @@ export class Unit {
         this.counterparties = new Counterparties(token, basePath, config)
         this.events = new Events(token, basePath, config)
         this.payments = new Payments(token, basePath, config)
+        this.receivedPayments = new ReceivedPayments(token, basePath, config)
         this.authorizations = new Authorizations(token, basePath, config)
         this.authorizationRequests = new AuthorizationRequests(token, basePath, config)
         this.statements = new Statments(token, basePath, config)
@@ -76,7 +84,10 @@ export class Unit {
         this.billPays = new BillPays(token, basePath, config)
         this.institutions = new Institutions(token, basePath, config)
         this.atmLocations = new AtmLocations(token, basePath, config)
-        this.receivedPayments = new ReceivedPayments(token, basePath, config)
+        this.checkDeposits = new CheckDeposits(token, basePath, config)
+        this.rewards = new Rewards(token, basePath, config)
+        this.recurringPayments = new RecurringPayments(token, basePath, config)
+        this.orgTokens = new OrgTokens(token, basePath, config)
         this.helpers = helpers
     }
 

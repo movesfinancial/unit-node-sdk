@@ -1,5 +1,5 @@
-import { Application, ApplicationDocument, CreateApplicationRequest, UploadDocumentRequest } from "../types/application"
-import { UnitResponse, Include, UnitConfig } from "../types/common"
+import { Application, ApplicationDocument, CreateApplicationRequest, PatchApplicationRequest, UploadDocumentRequest } from "../types/application"
+import { UnitResponse, Include, UnitConfig, BaseListParams } from "../types/common"
 import { BaseResource } from "./baseResource"
 
 export class Applications extends BaseResource {
@@ -9,7 +9,7 @@ export class Applications extends BaseResource {
     }
 
     public async list(params?: ApplicationListParams): Promise<UnitResponse<Application[]>> {
-        const parameters = {
+        const parameters: any = {
             "page[limit]": (params?.limit ? params?.limit : 100),
             "page[offset]": (params?.offset ? params?.offset : 0),
             ...(params?.query && { "filter[query]": params?.query }),
@@ -18,11 +18,16 @@ export class Applications extends BaseResource {
             "sort": params?.sort ? params.sort : "-createdAt"
         }
 
+        if (params?.status)
+            params.status.forEach((s, idx) => {
+                parameters[`filter[status][${idx}]`] = s
+            })
+
         return this.httpGet<UnitResponse<Application[]>>("", { params: parameters })
     }
 
-    public async create(request: CreateApplicationRequest): Promise<UnitResponse<Application>> {
-        return this.httpPost<UnitResponse<Application>>("", { data: request })
+    public async create(request: CreateApplicationRequest): Promise<UnitResponse<Application> & Include<ApplicationDocument[]>> {
+        return this.httpPost<UnitResponse<Application> & Include<ApplicationDocument[]>>("", { data: request })
     }
 
     public async upload(request: UploadDocumentRequest) : Promise<UnitResponse<ApplicationDocument>> {
@@ -56,6 +61,10 @@ export class Applications extends BaseResource {
         return this.httpPut<UnitResponse<ApplicationDocument>>(path, request.file, {headers})
     }
 
+    public async update(request: PatchApplicationRequest): Promise<UnitResponse<Application>> {
+        return this.httpPatch<UnitResponse<Application>>(`/${request.applicationId}`, {data: request.data})
+    }
+
     public async get(applicationId: string): Promise<UnitResponse<Application> & Include<ApplicationDocument[]>> {
         return this.httpGet<UnitResponse<Application> & Include<ApplicationDocument[]>>(`/${applicationId}`)
     }
@@ -65,19 +74,7 @@ export class Applications extends BaseResource {
     }
 }
 
-export interface ApplicationListParams {
-    /**
-     * Maximum number of resources that will be returned. Maximum is 1000 resources. [See Pagination](https://developers.unit.co/#intro-pagination).
-     * default: 100
-     */
-    limit?: number
-
-    /**
-     * Number of resources to skip. [See Pagination](https://developers.unit.co/#intro-pagination).
-     * default: 0
-     */
-    offset?: number
-
+export interface ApplicationListParams extends BaseListParams {
     /**
      * Optional. Search term according to the Full-Text Search Rules.
      * default: empty
@@ -101,4 +98,9 @@ export interface ApplicationListParams {
      * default: sort=-createdAt
      */
     sort?: string
+
+    /**
+     * Optional. Filter Account by its status (Open, Frozen, or Closed). Usage example: filter[status][0]=Closed
+     */
+    status?: string[]
 }

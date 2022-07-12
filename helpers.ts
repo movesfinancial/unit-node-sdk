@@ -1,5 +1,16 @@
-import {State, Address, FullName, Phone, Status, Title, Officer, BeneficialOwner, BusinessContact, AuthorizedUser, Counterparty, Coordinates} from "./types/common"
-export function createAddress(street: string, street2: string | null, city: string, state: State | null, postalCode: string, country: string): Address {
+import {State, Address, FullName, Phone, Status, Title, Officer, BeneficialOwner, BusinessContact, AuthorizedUser, Counterparty, Coordinates, UsAddress, InternationalAddress, Relationship, RelationshipsArrayData} from "./types/common"
+export function createUsAddress(street: string, street2: string | null, city: string, state: State | null, postalCode: string, country: "US"): UsAddress {
+    return {
+        street,
+        ...(street2 && { street2 }),
+        city,
+        ...(state && { state }),
+        postalCode,
+        country
+    }
+}
+
+export function createAddress(street: string, street2: string | null, city: string, state: string | null, postalCode: string, country: string): InternationalAddress {
     return {
         street,
         ...(street2 && { street2 }),
@@ -87,3 +98,25 @@ export function createCoordinates(longitude: number, latitude: number): Coordina
         latitude
     }
 }
+
+export function createRelationship(type: string, id: string): Relationship {
+    return {
+        data: {
+            type,
+            id
+        }
+    }
+}
+
+export function createRelationshipArray(type: string, ids: string[]): RelationshipsArrayData {
+    
+    const ra: any = []
+    ids.forEach(id => {
+        ra.push({
+                type,
+                id
+            })
+    })
+    return ra
+}
+
