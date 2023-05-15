@@ -67,6 +67,8 @@ describe("Applications", () => {
                     "countryCode": "1",
                     "number": "1555555578"
                 },
+                "nationality": "US",
+                "occupation": "GigWorker",
                 "status": "AwaitingDocuments",
                 "message": "Waiting for you to upload the required documents.",
                 "archived": false,
@@ -406,7 +408,9 @@ describe("Create and Close Application", () => {
                 dateOfBirth: "2001-08-10",
                 address: createAddress("20 Ingram St", null, "Forest Hills", "CA", "11375", "US"),
                 email: "april@baxter.com",
-                phone: createPhone("1", "5555555555")
+                phone: createPhone("1", "5555555555"),
+                nationality: "US",
+                occupation: "GigWorker"
             }
         }
     
