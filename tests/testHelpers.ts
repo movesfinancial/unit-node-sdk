@@ -9,10 +9,8 @@ export function createIndividualApplication(unit: Unit) {
             fullName: createFullName("Richard", "Hendricks"),
             dateOfBirth: "2001-08-10",
             address: createAddress("20 Ingram St", null, "Forest Hills", "CA", "11375", "US"),
-            nationality: "US",
             email: "april@baxter.com",
-            phone: createPhone("1", "5555555555"),
-            occupation: "GigWorker"
+            phone: createPhone("1", "5555555555")
         }
     }
 
@@ -27,10 +25,8 @@ export function createIndividualApplicationWithRequiredDocument(unit: Unit) {
             fullName: createFullName("Richard", "Hendricks"),
             dateOfBirth: "2001-08-10",
             address: createAddress("20 Ingram St", null, "Forest Hills", "CA", "11375", "US"),
-            nationality: "US",
             email: "april@baxter.com",
-            phone: createPhone("1", "5555555555"),
-            occupation: "GigWorker"
+            phone: createPhone("1", "5555555555")
         }
     }
 
@@ -45,10 +41,8 @@ export function createIndividualApplicationWithSelfieVerification(unit: Unit) {
             fullName: createFullName("Richard", "Hendricks"),
             dateOfBirth: "2001-08-10",
             address: createAddress("20 Ingram St", null, "Forest Hills", "CA", "11375", "US"),
-            nationality: "US",
             email: "april@baxter.com",
             phone: createPhone("1", "5555555555"),
-            occupation: "GigWorker",
             evaluationParams: {
                 "useSelfieVerification": "ReplaceIdentification"
             }

@@ -67,8 +67,6 @@ describe("Applications", () => {
                     "countryCode": "1",
                     "number": "1555555578"
                 },
-                "nationality": "US",
-                "occupation": "GigWorker",
                 "status": "AwaitingDocuments",
                 "message": "Waiting for you to upload the required documents.",
                 "archived": false,
