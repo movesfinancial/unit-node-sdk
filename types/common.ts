@@ -513,21 +513,6 @@ export interface UnitErrorPayload {
     [k: string]: unknown // allow for other keys
 }
 
-/**
- * https://docs.unit.co/types/#push-to-card-configuration
- */
-export interface PushToCardConfiguration {
-  astra: {
-    authToken: string
-    debitFeePercent?: number
-    institutionId: string
-    destinationCardId: string
-    routingNumber: number
-    accountNumber: number
-    referenceId: string
-  }
-}
-
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const extractUnitError = (underlying: any): UnitError => {
     // for now, we only support extracting a UnitError from an axios error
