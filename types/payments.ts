@@ -357,7 +357,7 @@ export interface PushToCardPayment {
      */
     type: "pushToCardPayment"
 
-    attributes: BasePaymentAttributes & {
+    attributes: Omit<BasePaymentAttributes, 'direction'> & {
         /**
          * In case the payment status is 'Sent', it is the generated astra routine id
          */
