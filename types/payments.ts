@@ -40,6 +40,11 @@ interface BasePaymentAttributes {
      * See [Tags](https://developers.unit.co/#tags).
      */
     tags?: Tags
+
+    /**
+     * Generated Astra routine id if the payment status is Sent
+     */
+    astraRoutineId?: string
 }
 
 interface BasePaymentRelationships {
