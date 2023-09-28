@@ -435,6 +435,7 @@ export type TransactionUpdated = BaseEvent & {
     }
     relationships: {
         transaction: Relationship
+        account: Relationship
     }
 }
 
