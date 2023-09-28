@@ -18,7 +18,7 @@ import { Statments } from "./resources/statements"
 import { Returns } from "./resources/returns"
 import { ApplicationForms } from "./resources/applicationForm"
 import { AccountsEndOfDay } from "./resources/accountEndOfDay"
-import { BillPays, Rewards } from "./resources"
+import { BillPays, CheckPayments, Rewards } from "./resources"
 import { Institutions } from "./resources/institutions"
 import { AtmLocations } from "./resources/atmLocations"
 import { CheckDeposits } from "./resources/checkDeposit"
@@ -28,6 +28,8 @@ import { OrgTokens } from "./resources/orgToken"
 import { Simulations } from "./resources/simulations"
 import { Disputes } from "./resources/dispute"
 import { Repayments } from "./resources/repayments"
+import { StopPayments } from "./resources/stopPayments"
+import { Chargebacks } from "./resources/chargeback"
 
 export class Unit {
     public applications: Applications
@@ -60,6 +62,9 @@ export class Unit {
     public simulations: Simulations
     public disputes: Disputes
     public repayments: Repayments
+    public stopPayments: StopPayments
+    public checkPayments: CheckPayments
+    public chargebacks: Chargebacks
 
     constructor(token: string, basePath: string, config?: UnitConfig) {
         // remove all trailing slashes from user-provided basePath
@@ -94,6 +99,9 @@ export class Unit {
         this.simulations = new Simulations(token, basePath, config)
         this.disputes = new Disputes(token, basePath, config)
         this.repayments = new Repayments(token, basePath, config)
+        this.stopPayments = new StopPayments(token, basePath, config)
+        this.checkPayments = new CheckPayments(token, basePath, config)
+        this.chargebacks = new Chargebacks(token, basePath, config)
         this.helpers = helpers
     }
 

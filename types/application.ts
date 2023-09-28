@@ -1,5 +1,5 @@
 import { responseEncoding, ResponseType } from "axios"
-import { Address, BusinessContact, FullName, Officer, Phone, Relationship, DeviceFingerprint, Agent, RelationshipsArray, Beneficiary, Grantor, TrustContact, Trustee, UnimplementedRelationships, UnimplementedFields, EvaluationParams, Industry, Tags, BaseContactAttributes, Status } from "./common"
+import { Address, BusinessContact, FullName, Officer, Phone, Relationship, DeviceFingerprint, Agent, RelationshipsArray, Beneficiary, Grantor, TrustContact, Trustee, UnimplementedRelationships, UnimplementedFields, EvaluationParams, Industry, Tags, BaseContactAttributes, Status, EntityType } from "./common"
 
 /**
  * see [Application Statuses](https://docs.unit.co/applications/#application-statuses).
@@ -104,9 +104,6 @@ export type BusinessVertical =
     "TechnologyMediaOrTelecom" |
     "TransportationOrWarehousing" |
     "Utilities"
-
-
-export type EntityType = "Corporation" | "LLC" | "Partnership" | "PubliclyTradedCorporation" | "PrivatelyHeldCorporation" | "NotForProfitOrganization"
 
 export type CashFlow = "Unpredictable" | "Predictable"
 
@@ -310,6 +307,11 @@ export interface IndividualApplication extends BaseApplication {
          * Optional. Score (0-1000) for ID theft verification, >900 is auto rejected as default (threshold is configurable).
          */
         idTheftScore?: number
+
+        /**
+         * Optional. See (this)[https://docs.unit.co/customer-api-tokens/#customers-create-customer-bearer-token-jwt] section for more information.
+         */
+        jwtSubject?: string
     } & BaseApplicationAttributes & BaseIndividualAttributes
 
     relationships: BaseApplicationRelationships
@@ -630,7 +632,7 @@ export interface CreateSoleProprietorApplicationRequest {
          */
         soleProprietorship?: boolean
 
-        
+
         /**
          * Optional. Indicates if the individual is a sole proprietor who has an Employer Identification Number, if specified.
          */

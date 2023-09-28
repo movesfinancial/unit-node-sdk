@@ -882,6 +882,7 @@ describe("Create Document", () => {
         expect(document?.attributes.status).toBe("Required")
     })
 
+    // TODO: skipping test for now
     test("Verify Document for Individual Application", async () => {
         const applicationId = (await createIndividualApplicationWithSelfieVerification(unit)).data.id
         const documents = (await unit.applications.listDocuments(applicationId)).data
@@ -890,7 +891,7 @@ describe("Create Document", () => {
         const document = documents[0]
         expect(document.attributes.documentType).toBe("SelfieVerification")
         const documentId = document?.id || ""
-        const req: VerifyDocumentRequest = createVerifyDocumentRequest(applicationId, documentId, "Tn4NxMisa")
+        const req: VerifyDocumentRequest = createVerifyDocumentRequest(applicationId, documentId, "BRovg81fn")
         const res = await unit.applications.verifyDocument(req)
         expect(document?.id).toBe(res.data.id)
         expect(document?.attributes.description).toBe(res.data.attributes.description)
@@ -910,7 +911,8 @@ describe("Create and Close Application", () => {
                 dateOfBirth: "2001-08-10",
                 address: createAddress("20 Ingram St", null, "Forest Hills", "CA", "11375", "US"),
                 email: "april@baxter.com",
-                phone: createPhone("1", "5555555555")
+                phone: createPhone("1", "5555555555"),
+                occupation: "Doctor"
             }
         }
     

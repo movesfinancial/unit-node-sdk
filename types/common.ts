@@ -25,9 +25,9 @@ export interface BaseListParams extends UnimplementedFields {
      * default: 0
      */
     offset?: number
-
-    [k: string]: unknown
 }
+
+export type Sort = "createdAt" | "-createdAt"
 
 /**
  * See [Tags](https://developers.unit.co/#tags).
@@ -209,6 +209,22 @@ export interface WireCounterparty extends Pick<Counterparty, "routingNumber" | "
 
 export type CheckCounterparty = Pick<Counterparty, "routingNumber" | "accountNumber" | "name">
 
+export interface CheckPaymentCounterparty {
+    /**
+     * The name of the person or company that owns the bank account.
+     */
+    name: string
+
+    /**
+     * The payee's address. street length cannot exceeed 50 characters. street2 must be null`.
+     */
+    address: Address
+
+    /**
+     * Optional. True if the counterparty's address has been modified to correspond with a National Change of Address applied on the address. See guide for further information.
+     */
+    counterpartyMoved?: boolean
+}
 export interface Coordinates {
     /**
      * The longitude value.
@@ -406,7 +422,12 @@ export type Direction = "Credit" | "Debit"
 
 export type CardNetwork = "Visa" | "Interlink" | "Accel" | "Allpoint" | "Other"
 
+export type EntityType = "Corporation" | "LLC" | "Partnership" | "PubliclyTradedCorporation" | "PrivatelyHeldCorporation" | "NotForProfitOrganization"
+
+
 export interface RichMerchantData {
+    name: string // Name of the merchant.
+    website?: string // URL of the merchant's website.
     logo?: string // URL of the merchant's logo.
     phone?: string // Phone number of the merchant.
     categories?: Array<{ name: string; icon: string; }> // Array of categories the merchant belongs to (from the least specific to the most specific).

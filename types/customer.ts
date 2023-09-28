@@ -1,4 +1,4 @@
-import { Address, AuthorizedUser, BusinessContact, FullName, Phone, Relationship, State, Tags, TrustContact } from "./common"
+import { Address, AuthorizedUser, BusinessContact, EntityType, FullName, Phone, Relationship, State, Tags, TrustContact } from "./common"
 
 export type CustomerStatus = "Active" | "Archived"
 
@@ -118,6 +118,11 @@ export interface IndividualCustomer extends BaseCustomer {
          * Email address of the individual.
          */
         email: string
+
+        /**
+         * Optional. See (this)[https://docs.unit.co/customer-api-tokens/#customers-create-customer-bearer-token-jwt] section for more information.
+         */
+        jwtSubject?: string
     } & BaseCustomerAttributes
 }
 
@@ -162,9 +167,9 @@ export interface BusinessCustomer extends BaseCustomer {
         ein: string
 
         /**
-         * One of "Corporation" or "LLC".
+         * One of Corporation, Partnership, LLC, PubliclyTradedCorporation, PrivatelyHeldCorporation or NotForProfitOrganization
          */
-        entityType: "Corporation" | "LLC"
+        entityType: EntityType
 
         /**
          * Primary contact of the business.

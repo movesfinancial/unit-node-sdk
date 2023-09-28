@@ -1,6 +1,6 @@
 import {
-    Card, CardLimits, CreateDebitCardRequest, EnableCardToCardPaymentRequest, EnableCardToCardPaymentResponse, MobileWalletPayload, MobileWalletPayloadRequest, PinStatus, ReplaceCardRequest, UpdateCardRequest, CreateCardRquest} from "../types/cards"
-import { BaseListParams, Include, UnitConfig, UnitResponse } from "../types/common"
+    Card, CardLimits, CreateDebitCardRequest, EnableCardToCardPaymentRequest, EnableCardToCardPaymentResponse, MobileWalletPayload, MobileWalletPayloadRequest, PinStatus, ReplaceCardRequest, UpdateCardRequest, CreateCardRequest, CardStatus} from "../types/cards"
+import { BaseListParams, Include, Sort, Tags, UnitConfig, UnitResponse } from "../types/common"
 import { Customer } from "../types/customer"
 import { Account } from "../types/account"
 import { BaseResource } from "./baseResource"
@@ -18,7 +18,7 @@ export class Cards extends BaseResource {
         return await this.httpPost<UnitResponse<Card>>("", { data: request })
     }
 
-    public async create(request: CreateCardRquest): Promise<UnitResponse<Card>> {
+    public async create(request: CreateCardRequest): Promise<UnitResponse<Card>> {
         return await this.httpPostResourcePath<UnitResponse<Card>>({ data: request })
     }
 
@@ -131,17 +131,17 @@ export interface CardListParams extends BaseListParams {
     /**
      * Optional. Filter customers by status (Active, Archived). Usage example: *filter[status][0]=Active
      */
-    status?: string[]
+    status?: CardStatus[]
 
     /**
      * Optional. Filter Applications by Tags.
      * default: empty
      */
-    tags?: object
+    tags?: Tags
 
     /**
      * Optional. sort=createdAt for ascending order or sort=-createdAt (leading minus sign) for descending order.
      * default: sort=-createdAt
      */
-    sort?: string
+    sort?: Sort
 }

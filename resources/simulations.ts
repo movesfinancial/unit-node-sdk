@@ -1,11 +1,15 @@
 import { BaseResource } from "."
-import { UnitConfig, UnitResponse } from "../types"
-import { AchReceivedPayment, Application, ApplicationDocument } from "../types"
+import { CheckPayment, CreateCheckPaymentSimulation, UnitConfig, UnitResponse } from "../types"
+import { AchReceivedPayment, Application, ApplicationDocument, AchPayment, TransmitAchPayment } from "../types"
 import {
     ApproveApplicationSimulation,
     DenyApplicationSimulation,
     RejectDocumentSimulation,
     CreateAchReceivedPaymentSimulation,
+    ReceiveAchPaymentSimulation,
+    CreateCardPurchaseSimulation,
+    CardTransaction,
+    TransmitAchPaymentSimulation
 } from "../types"
 
 export class Simulations extends BaseResource {
@@ -60,6 +64,17 @@ export class Simulations extends BaseResource {
         )
     }
 
+    public async receiveAchPayment(
+        request: ReceiveAchPaymentSimulation
+    ): Promise<UnitResponse<AchPayment>> {
+        return this.httpPost<UnitResponse<AchPayment>>(
+            "/payments",
+            {
+                data: request,
+            }
+        )
+    }
+
     public async createAchReceivedPayment(
         request: CreateAchReceivedPaymentSimulation
     ): Promise<UnitResponse<AchReceivedPayment>> {
@@ -78,4 +93,27 @@ export class Simulations extends BaseResource {
             `/received-payments/${id}/complete`,
         )
     }
+
+    public async createCheckPayment(request: CreateCheckPaymentSimulation): Promise<UnitResponse<CheckPayment>> {
+        return this.httpPost<UnitResponse<CheckPayment>>("/check-payments", { data: request} )
+    }
+    
+    public async createCardPurchase(
+        request: CreateCardPurchaseSimulation
+    ): Promise<UnitResponse<CardTransaction>> {
+        return this.httpPost<UnitResponse<CardTransaction>>("/purchases", {
+            data: request,
+        })
+    }
+
+    public async transmitAchPayment(
+        request: TransmitAchPaymentSimulation
+      ): Promise<UnitResponse<TransmitAchPayment>> {
+        return this.httpPost<UnitResponse<TransmitAchPayment>>(
+            "/ach/transmit",
+            {
+                data: request,
+            }
+        )
+      }
 }

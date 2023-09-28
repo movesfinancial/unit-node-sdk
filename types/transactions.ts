@@ -910,7 +910,7 @@ export type PushToCardReversalTransaction = BaseTransaction & {
 
     relationships: {
         /**
-         * The org the customer belongs to. 
+         * The org the customer belongs to.
          */
         org: Relationship
 
@@ -926,4 +926,31 @@ export type PushToCardReversalTransaction = BaseTransaction & {
     }
 }
 
+
+export type PatchTransactionRequest = {
+    accountId: string
+    transactionId: string
+
+    data: {
+        type: "transaction"
+        attributes: {
+            tags?: Tags
+        }
+    }
+}
+
+export type PatchTransactionWithRelationshipsRequest = {
+    transactionId: string
+
+    data: {
+        type: "bookTransaction" | "chargebackTransaction"
+        attributes: {
+            summary?: string
+            tags?: Tags
+        }
+        relationships: {
+            account: Relationship
+        }
+    }
+}
 
